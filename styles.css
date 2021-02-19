@@ -1,0 +1,90 @@
+body {
+  background-color:rgba(228, 255, 251, 0.989);
+  font-family: Helvetica;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+td {
+  border: 3px solid rgb(24, 21, 40);
+  height: 80px;
+  width: 80px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.black {
+  background-color: rgb(24, 21, 40);
+  cursor: pointer;
+}
+
+.white {
+  background-color: white;
+}
+
+button {
+  height: 50px;
+  width: 140px;
+  font-size: 15px;
+  text-align: center;
+  color: rgb(24, 21, 40);
+  background-color: rgb(241, 247, 178);
+  border: none;
+  border-radius: 8%;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 15px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: rgb(212, 227, 51);
+  color: white;
+}
+
+.turn {
+  height: 50px;
+  width: 140px;
+  font-size: 15px;
+  text-align: center;
+  background-color: rgb(234, 94, 94);
+  border: none;
+  border-radius: 8%;
+  color: rgb(24, 21, 40);
+  font-weight: bold;
+  margin-left: 15px;
+  line-height: 50px;;
+  cursor: pointer;
+}
+
+.turn:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
