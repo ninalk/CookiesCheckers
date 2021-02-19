@@ -1,6 +1,7 @@
 // Constants
 // Board does not change - pieces can move only within the black cells
 // Attack can happen only if enemy is diagonally adjacent and empty space is available
+// Images of cookies and carrots?
 
 // MODEL
 // Set State Variables - these variables can change during the game
