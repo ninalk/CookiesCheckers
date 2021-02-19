@@ -1,29 +1,32 @@
 // Constants
 // Board does not change - pieces can move only within the black cells
 // Attack can happen only if enemy is diagonally adjacent and empty space is available
-// Images of cookies and carrots?
+// Images of cookies and carrots including king pieces (larger images)
 
 // MODEL
 // Set State Variables - these variables can change during the game
-  // Use Classes to create each piece
-  // Create a class Checkers and instances of Checkers for each player
+  // Represent the board with nested arrays
+    // populate an element (ie image of each piece) with a piece object and null 
+    // can represent an empty space
+  // Use classes to create CookiePieces and CarrotPieces
+    // pieces can be stored in an object
+    // each player has a total number of pieces
     // Player 1 - cookie pieces (12)
     // Player 2 - carrot pieces (12)
-  // Score board?
-    // Player 1 - number of cookie pieces left
-    // Player 2 - number of carrot pieces left
-  // Player 1 - King piece
-  // Player 2 - King piece
+  // When a piece becomes a King? Change image to larger image
+    // Player 1 - Cookie King pieces
+    // Player 2 - Carrot King pieces
   // Player's turn - tells users who's turn it is
-  // Winner of game - Player 1 or Player 2 or tie?
+    // Randomly generate who goes first and style div that holds turn
 
 
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
-// get ID of all the black cells?
-// need ID of every piece
-// get ID of Player 1 - need to show whos turn it is
-// get ID of Player 2 - need to show whos turn it is
+// need ID of every piece?
+// get ID of Cookie's turn which is same element that holds the num of pieces 
+  // need to show whos turn it is
+// get ID of Carrots turn which is the same element that holds the num of pieces
+  // need to show whos turn it is
 // get ID of Reset button - reset game
 // get ID of King cells 
 
@@ -37,7 +40,7 @@
 
 // Render function - responsible for transferring all state variables
   // Render the board
-    // Position of each player's pieces
+    // Populate each player's pieces in designated cell on the board
     // If empty cell is clicked, player's piece should occupy empty cell
     // If enemy is captured, remove enemy from cell
   // Render scoreboard
@@ -48,7 +51,7 @@
     
 // CONTROLLERS
 // Add event listeners to relevant elements
-// Handle a player clicking an empty cell
+// Handle a player clicking an empty black cells
 // Options for one move only (no enemy is diagonally adjacent)
   // Player piece can move only to one empty cell
 // Options for when enemy is diagonally adjacent and empty cell is available

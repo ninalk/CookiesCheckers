@@ -67,15 +67,21 @@ button:hover {
   background-color: rgb(239, 170, 44);
 }
 
+p {
+  line-height: 10px;
+}
+
 .turn {
+  display: flex;
+  justify-content: space-evenly;
   height: 50px;
   width: 140px;
-  font-size: 16px;
+  font-size: 24px;
   text-align: center;
   background-color: rgb(234, 94, 94);
   border: none;
   border-radius: 8%;
-  color: rgb(24, 21, 40);
+  color: white;
   font-weight: bold;
   margin: 0 15px 20px 18px;
   line-height: 50px;;
