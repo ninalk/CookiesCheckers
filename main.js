@@ -23,16 +23,6 @@ class CarrotCheckers extends Checkers {
   }
 }
 
-const piecesLookup = {
-  cookies: {
-    regImgUrl: "images/icons8-cookie-emoji-48.png",
-    kingImgUrl: "images/icons8-cookie-emoji-96.png"
-  },
-  carrots: {
-    regImgUrl: "images/icons8-carrot-48.png",
-    kingImgUrl: "images/icons8-carrot-96.png"
-  }
-}
 
 // Attack can happen only if enemy is diagonally adjacent and empty space is available
 
@@ -43,15 +33,29 @@ const piecesLookup = {
 // Represent the board with nested arrays
   // populate an element (ie image of each piece) with a piece object and null 
   // can represent an empty space
-let board;
+let board = [[null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null, null]];
 
 // Use classes to create CookiePieces and CarrotPieces
   // pieces can be stored in an object
   // each player has a total number of pieces
   // Player 1 - cookie pieces (12)
   // Player 2 - carrot pieces (12)
-let numOfCookies;
-let numOfCarrots;
+let cookieCheckers = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+  'images/icons8-cookie-emoji-96.png', false);
+  console.log(cookieCheckers)
+  
+let carrotCheckers = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+  'images/icons8-carrot-96.png', false);
+  console.log(carrotCheckers)
+  
+let numOfCheckers;
 let winner;
 
 // When a piece becomes a King? Change image to larger image
@@ -91,6 +95,19 @@ init();
 
 function init() {
   console.log('init is working');
+
+  playersTurn = {
+    cookies: true,
+    carrots: false
+  }
+
+  numofCheckers = {
+    cookies: 12,
+    carrots: 12
+  }
+
+  
+
 
   render();
 }
