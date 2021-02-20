@@ -6,10 +6,11 @@ class Checkers {
     this.player = player;
     this.imgSrc = imgSrc;
     this.kingImgSrc = kingImgSrc;
-    this.isKing = false;
+    this.isKing = isKing;
   }
 }
 
+// Subclasses of Checkers class
 class CookieCheckers extends Checkers {
   constructor(player, imgSrc, kingImgSrc, isKing) {
     super(player, imgSrc, kingImgSrc, isKing);
@@ -49,14 +50,16 @@ let board;
   // each player has a total number of pieces
   // Player 1 - cookie pieces (12)
   // Player 2 - carrot pieces (12)
-let cookieCheckers
+let numOfCookies;
+let numOfCarrots;
+let winner;
 
 // When a piece becomes a King? Change image to larger image
   // Player 1 - Cookie King pieces
   // Player 2 - Carrot King pieces
 // Player's turn - tells users who's turn it is
   // Randomly generate who goes first and style div that holds turn
-
+let playersTurn;
 
 /*----- cached element references -----*/
 // VIEW
