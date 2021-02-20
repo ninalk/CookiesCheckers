@@ -1,8 +1,20 @@
+/*----- constants -----*/
 // Constants
-// Board does not change - pieces can move only within the black cells
-// Attack can happen only if enemy is diagonally adjacent and empty space is available
 // Images of cookies and carrots including king pieces (larger images)
+const piecesLookup = {
+  cookies: {
+    regImgUrl: "images/icons8-cookie-emoji-48.png",
+    kingImgUrl: "images/icons8-cookie-emoji-96.png"
+  },
+  carrots: {
+    regImgUrl: "images/icons8-carrot-48.png",
+    kingImgUrl: "images/icons8-carrot-96.png"
+  }
+}
+// Attack can happen only if enemy is diagonally adjacent and empty space is available
 
+
+/*----- app's state (variables) -----*/
 // MODEL
 // Set State Variables - these variables can change during the game
   // Represent the board with nested arrays
@@ -20,6 +32,7 @@
     // Randomly generate who goes first and style div that holds turn
 
 
+/*----- cached element references -----*/
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
 // need ID of every piece?
@@ -31,6 +44,7 @@
 // get ID of King cells 
 
 
+/*----- functions -----*/
 // CALLBACK FUNCTIONS 
 // Init function - what the users see upon loading the browser
   // Initialize Player's turn
@@ -48,7 +62,9 @@
     // When 0 pieces left, display winner and loser
 
 // Wait for user to click a cell
-    
+
+
+/*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
 // Handle a player clicking an empty black cells
