@@ -1,6 +1,27 @@
 /*----- constants -----*/
 // Constants
 // Images of cookies and carrots including king pieces (larger images)
+class Checkers {
+  constructor(player, imgSrc, kingImgSrc, isKing) {
+    this.player = player;
+    this.imgSrc = imgSrc;
+    this.kingImgSrc = kingImgSrc;
+    this.isKing = false;
+  }
+}
+
+class CookieCheckers extends Checkers {
+  constructor(player, imgSrc, kingImgSrc, isKing) {
+    super(player, imgSrc, kingImgSrc, isKing);
+  }
+}
+
+class CarrotCheckers extends Checkers {
+  constructor(player, imgSrc, kingImgSrc, isKing) {
+    super(player, imgSrc, kingImgSrc, isKing);
+  }
+}
+
 const piecesLookup = {
   cookies: {
     regImgUrl: "images/icons8-cookie-emoji-48.png",
@@ -11,25 +32,30 @@ const piecesLookup = {
     kingImgUrl: "images/icons8-carrot-96.png"
   }
 }
+
 // Attack can happen only if enemy is diagonally adjacent and empty space is available
 
 
 /*----- app's state (variables) -----*/
 // MODEL
 // Set State Variables - these variables can change during the game
-  // Represent the board with nested arrays
-    // populate an element (ie image of each piece) with a piece object and null 
-    // can represent an empty space
-  // Use classes to create CookiePieces and CarrotPieces
-    // pieces can be stored in an object
-    // each player has a total number of pieces
-    // Player 1 - cookie pieces (12)
-    // Player 2 - carrot pieces (12)
-  // When a piece becomes a King? Change image to larger image
-    // Player 1 - Cookie King pieces
-    // Player 2 - Carrot King pieces
-  // Player's turn - tells users who's turn it is
-    // Randomly generate who goes first and style div that holds turn
+// Represent the board with nested arrays
+  // populate an element (ie image of each piece) with a piece object and null 
+  // can represent an empty space
+let board;
+
+// Use classes to create CookiePieces and CarrotPieces
+  // pieces can be stored in an object
+  // each player has a total number of pieces
+  // Player 1 - cookie pieces (12)
+  // Player 2 - carrot pieces (12)
+let cookieCheckers
+
+// When a piece becomes a King? Change image to larger image
+  // Player 1 - Cookie King pieces
+  // Player 2 - Carrot King pieces
+// Player's turn - tells users who's turn it is
+  // Randomly generate who goes first and style div that holds turn
 
 
 /*----- cached element references -----*/
