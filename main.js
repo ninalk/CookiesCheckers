@@ -87,6 +87,13 @@ let numOfCarrotsEl = document.getElementById('num-of-carrots');
   // Each player should have all 12 pieces on the board in designated cells
   // No player should have a King piece
   // State of the game - the scoreboard should show 12:12
+init();
+
+function init() {
+  console.log('init is working');
+
+  render();
+}
 
 // Render function - responsible for transferring all state variables
   // Render the board
@@ -96,6 +103,10 @@ let numOfCarrotsEl = document.getElementById('num-of-carrots');
   // Render scoreboard
     // When enemy is captured, update scoreboard
     // When 0 pieces left, display winner and loser
+function render() {
+  console.log('render is working');
+}
+
 
 // Wait for user to click a cell
 
