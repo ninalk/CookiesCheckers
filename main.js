@@ -67,11 +67,18 @@ let playersTurn;
 // need ID of every piece?
 // get ID of Cookie's turn which is same element that holds the num of pieces 
   // need to show whos turn it is
-// get ID of Carrots turn which is the same element that holds the num of pieces
-  // need to show whos turn it is
-// get ID of Reset button - reset game
-// get ID of King cells 
+let cookiesTurnEl = document.getElementById('cookies-turn');
 
+// get ID of Carrots turn which is the same element that holds the num of pieces
+// need to show whos turn it is
+let carrotsTurnEl = document.getElementById('carrots-turn');
+
+// get ID of Reset button - reset game
+let resetBtnEL = document.getElementById('replay-btn');
+
+// get ID of score aka number of checkers left for each player
+let numOfCookiesEl = document.getElementById('num-of-cookies');
+let numOfCarrotsEl = document.getElementById('num-of-carrots');
 
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
