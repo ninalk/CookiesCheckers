@@ -70,20 +70,21 @@ let playersTurn;
 // need ID of every piece?
 let boardEl = document.querySelectorAll('.black');
 
-// get ID of Cookie's turn which is same element that holds the num of pieces 
-  // need to show whos turn it is
-let cookiesTurnEl = document.getElementById('cookies-turn');
+const turnEls = {
+  cookiesTurn: document.getElementById('cookies-turn'),
+  carrotsTurn: document.getElementById('carrots-turn')
+}
 
-// get ID of Carrots turn which is the same element that holds the num of pieces
-// need to show whos turn it is
-let carrotsTurnEl = document.getElementById('carrots-turn');
 
 // get ID of Reset button - reset game
 let resetBtnEL = document.getElementById('replay-btn');
 
 // get ID of score aka number of checkers left for each player
-let numOfCookiesEl = document.getElementById('num-of-cookies');
-let numOfCarrotsEl = document.getElementById('num-of-carrots');
+const scoreEls = {
+  numOfCookies: document.getElementById('num-of-cookies'),
+  numOfCarrots: document.getElementById('num-of-carrots')
+}
+
 
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
@@ -98,13 +99,13 @@ function init() {
   console.log('init is working');
 
   playersTurn = {
-    cookies: true,
-    carrots: false
+    cookiesTurn: true,
+    carrotsTurn: false
   }
 
   numofCheckers = {
-    cookies: 12,
-    carrots: 12
+    numOfCookies: 12,
+    numOfCarrots: 12
   }
 
   for (let i = 0; i < boardEl.length; i++) {
@@ -136,7 +137,6 @@ function init() {
 function render() {
   console.log('render is working');
 
-  
 }
 
 
