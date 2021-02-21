@@ -69,12 +69,13 @@ let playersTurn;
 // Store elements that need to be accessed multiple times throughout the game
 const boardEl = document.querySelectorAll('.black');
 
+
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
   carrotsTurn: document.getElementById('carrots-turn')
 }
 
-const resetBtnEL = document.getElementById('replay-btn');
+const replayBtnEL = document.getElementById('replay-btn');
 
 const scoreEls = {
   numOfCookies: document.getElementById('num-of-cookies'),
@@ -140,6 +141,11 @@ function init() {
 function render() {
   console.log('render is working');
 
+  makeCheckers();
+  
+}
+
+function makeCheckers() {
   for (let i = 0; i < boardEl.length; i++) {
     if (i < 12) {
       let makeCookies = document.createElement('IMG');
@@ -151,20 +157,23 @@ function render() {
       boardEl[i].appendChild(makeCarrots);
     }
   }
-  
 
+  // add event listeners to all cookieCheckers and carrotCheckers
+  const imgEl = document.querySelectorAll('td.black > img');
+  imgEl.forEach(img => img.addEventListener('click', function(e) {
+    console.log(e.target);
+  }));
 }
 
+// function getPlayersTurn(lastPlayer) {
+//   if (lastPlayer === 'cookiesTurn') {
+//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
+//   } else {
+//     turnEls.cookiesTurn.style.backgrounColor = 'grey';
+//   }
 
-function getPlayersTurn(lastPlayer) {
-  if (lastPlayer === 'cookiesTurn') {
-    turnEls.carrotsTurn.style.backgroundColor = 'grey';
-  } else {
-    turnEls.cookiesTurn.style.backgrounColor = 'grey';
-  }
-
-  render();
-}
+//   render();
+// }
 
 // Wait for user to click a cell
 
@@ -182,9 +191,6 @@ function getPlayersTurn(lastPlayer) {
   // When zero pieces left, game over! Name the winner!
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
-boardEl.forEach(function(cell) {
-  cell.addEventListener('click', getPlayersTurn);
-});
 
 
 
