@@ -67,19 +67,20 @@ let playersTurn;
 /*----- cached element references -----*/
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
-let boardEl = document.querySelectorAll('.black');
+const boardEl = document.querySelectorAll('.black');
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
   carrotsTurn: document.getElementById('carrots-turn')
 }
 
-let resetBtnEL = document.getElementById('replay-btn');
+const resetBtnEL = document.getElementById('replay-btn');
 
 const scoreEls = {
   numOfCookies: document.getElementById('num-of-cookies'),
   numOfCarrots: document.getElementById('num-of-carrots')
 }
+
 
 
 /*----- functions -----*/
@@ -95,8 +96,8 @@ function init() {
   console.log('init is working');
 
   playersTurn = {
-    cookiesTurn: true,
-    carrotsTurn: false
+    cookiesTurn: 'grey',
+    carrotsTurn: 'none'
   }
 
   numofCheckers = {
@@ -104,18 +105,24 @@ function init() {
     numOfCarrots: 12
   }
 
-  for (let i = 0; i < boardEl.length; i++) {
-    if (i < 12) {
-      let makeCookies = document.createElement('IMG');
-      makeCookies.setAttribute("src", cookieCheckers.imgSrc);
-      boardEl[i].appendChild(makeCookies);
-    } else if (i >= 20) {
-      let makeCarrots = document.createElement('IMG');
-      makeCarrots.setAttribute("src", carrotCheckers.imgSrc);
-      boardEl[i].appendChild(makeCarrots);
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (i < board[i].length - 5) {
+        if (i % 2 === 0 && j % 2 === 0) {
+          board[i][j] = cookieCheckers;
+        } else if (i % 2 === 1 && j % 2 === 1) {
+          board[i][j] = cookieCheckers;
+        }
+      } else if (i > board[i].length - 4) {
+        if (i % 2 === 0 && j % 2 === 0) {
+          board[i][j] = carrotCheckers;
+        } else if (i % 2 === 1 && j % 2 === 1) {
+          board[i][j] = carrotCheckers;
+        }
+      }
     }
   }
-
+  console.log(board)
 
   winner = null;
 
@@ -133,8 +140,31 @@ function init() {
 function render() {
   console.log('render is working');
 
+  for (let i = 0; i < boardEl.length; i++) {
+    if (i < 12) {
+      let makeCookies = document.createElement('IMG');
+      makeCookies.setAttribute('src', cookieCheckers.imgSrc);
+      boardEl[i].appendChild(makeCookies);
+    } else if (i >= 20) {
+      let makeCarrots = document.createElement('IMG');
+      makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
+      boardEl[i].appendChild(makeCarrots);
+    }
+  }
+  
+
 }
 
+
+function getPlayersTurn(lastPlayer) {
+  if (lastPlayer === 'cookiesTurn') {
+    turnEls.carrotsTurn.style.backgroundColor = 'grey';
+  } else {
+    turnEls.cookiesTurn.style.backgrounColor = 'grey';
+  }
+
+  render();
+}
 
 // Wait for user to click a cell
 
@@ -152,6 +182,11 @@ function render() {
   // When zero pieces left, game over! Name the winner!
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
+boardEl.forEach(function(cell) {
+  cell.addEventListener('click', getPlayersTurn);
+});
+
+
 
 // Handle click on Reset button
   // Initialize state variables 
