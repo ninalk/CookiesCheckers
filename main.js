@@ -67,7 +67,6 @@ let playersTurn;
 /*----- cached element references -----*/
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
-// need ID of every piece?
 let boardEl = document.querySelectorAll('.black');
 
 const turnEls = {
@@ -75,11 +74,8 @@ const turnEls = {
   carrotsTurn: document.getElementById('carrots-turn')
 }
 
-
-// get ID of Reset button - reset game
 let resetBtnEL = document.getElementById('replay-btn');
 
-// get ID of score aka number of checkers left for each player
 const scoreEls = {
   numOfCookies: document.getElementById('num-of-cookies'),
   numOfCarrots: document.getElementById('num-of-carrots')

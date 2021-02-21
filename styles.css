@@ -11,9 +11,13 @@ h1 {
   font-family: 'Luckiest Guy', cursive;
   font-size: 85px;
   text-align: center;
-  margin: 18px auto 0 auto;
+  margin: auto;
   color: rgb(70, 49, 49);
-  padding: 10px;
+}
+
+.heading > img {
+  height: 100px;
+  width: 100px;
 }
 
 .menu {
