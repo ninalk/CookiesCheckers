@@ -107,16 +107,6 @@ function init() {
     carrots: 12
   }
 
-  // populate cookieCheckers on board
-  // for (let i = 0; i < board.length - 5; i++) {
-  //   for (let j = 0; j < board[i].length; j++) {
-  //     if (j % 2 === 0 && i % 2 === 0) {
-  //       board[i][j] = makeCookies;
-  //     } else if (j % 2 === 1 && i % 2 === 1) {
-  //       board[i][j] = makeCookies;
-  //     }
-  //   }
-  // }
   for (let i = 0; i < boardEl.length; i++) {
     if (i < 12) {
       let makeCookies = document.createElement('IMG');
