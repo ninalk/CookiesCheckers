@@ -21,7 +21,7 @@ h1 {
   grid-row: 2 / span 2;
 }
 
-table {
+#checkers-board {
   margin: auto;
   border-collapse: collapse;
   grid-column: 2;

@@ -42,19 +42,18 @@ let board = [[null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null]];
 
-// Use classes to create CookiePieces and CarrotPieces
+
+  // Use classes to create CookiePieces and CarrotPieces
   // pieces can be stored in an object
   // each player has a total number of pieces
   // Player 1 - cookie pieces (12)
   // Player 2 - carrot pieces (12)
 let cookieCheckers = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
   'images/icons8-cookie-emoji-96.png', false);
-  console.log(cookieCheckers)
   
 let carrotCheckers = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
   'images/icons8-carrot-96.png', false);
-  console.log(carrotCheckers)
-  
+
 let numOfCheckers;
 let winner;
 
@@ -69,6 +68,8 @@ let playersTurn;
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
 // need ID of every piece?
+let boardEl = document.querySelectorAll('.black');
+
 // get ID of Cookie's turn which is same element that holds the num of pieces 
   // need to show whos turn it is
 let cookiesTurnEl = document.getElementById('cookies-turn');
@@ -106,8 +107,30 @@ function init() {
     carrots: 12
   }
 
-  
+  // populate cookieCheckers on board
+  // for (let i = 0; i < board.length - 5; i++) {
+  //   for (let j = 0; j < board[i].length; j++) {
+  //     if (j % 2 === 0 && i % 2 === 0) {
+  //       board[i][j] = makeCookies;
+  //     } else if (j % 2 === 1 && i % 2 === 1) {
+  //       board[i][j] = makeCookies;
+  //     }
+  //   }
+  // }
+  for (let i = 0; i < boardEl.length; i++) {
+    if (i < 12) {
+      let makeCookies = document.createElement('IMG');
+      makeCookies.setAttribute("src", cookieCheckers.imgSrc);
+      boardEl[i].appendChild(makeCookies);
+    } else if (i >= 20) {
+      let makeCarrots = document.createElement('IMG');
+      makeCarrots.setAttribute("src", carrotCheckers.imgSrc);
+      boardEl[i].appendChild(makeCarrots);
+    }
+  }
 
+
+  winner = null;
 
   render();
 }
@@ -122,6 +145,8 @@ function init() {
     // When 0 pieces left, display winner and loser
 function render() {
   console.log('render is working');
+
+  
 }
 
 
