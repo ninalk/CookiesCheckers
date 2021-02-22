@@ -39,12 +39,31 @@ let board = [[null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null]];
 
 
-  // Use classes to create CookiePieces and CarrotPieces
-let cookieCheckers = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+// Use classes to create CookiePieces and CarrotPieces
+let cookieCheckers = []; 
+let carrotCheckers = [];
+
+// loop to make cookies and carrots and push into the cookieCheckers & carrotCheckers arrays
+function makeCookies() {
+  let cookies = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
   'images/icons8-cookie-emoji-96.png', false);
   
-let carrotCheckers = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+  for (let i = 0; i < 12; i++) {
+    cookieCheckers.push(cookies);
+  }
+  return cookieCheckers;
+}
+
+function makeCarrots() {
+  let carrots = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
   'images/icons8-carrot-96.png', false);
+  
+  for (let i = 0; i < 12; i++) {
+    carrotCheckers.push(carrots);
+  }
+  return carrotCheckers;
+}
+
 
 let numOfCheckers;
 let winner;
@@ -60,19 +79,27 @@ let playersTurn;
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
 const boardEl = document.querySelectorAll('.black');
+const row0El = document.querySelectorAll('.row-0');
+const row1El = document.querySelectorAll('.row-1');
+const row2El = document.querySelectorAll('.row-2');
+const row3El = document.querySelectorAll('.row-3');
+const row4El = document.querySelectorAll('.row-4');
+const row5El = document.querySelectorAll('.row-5');
+const row6El = document.querySelectorAll('.row-6');
+const row7El = document.querySelectorAll('.row-7');
+console.log(row0El)
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
   carrotsTurn: document.getElementById('carrots-turn')
 }
 
-const replayBtnEL = document.getElementById('replay-btn');
-
 const scoreEls = {
   numOfCookies: document.getElementById('num-of-cookies'),
   numOfCarrots: document.getElementById('num-of-carrots')
 }
 
+const replayBtnEL = document.getElementById('replay-btn');
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
 // Init function - what the users see upon loading the browser
@@ -92,26 +119,32 @@ function init() {
     numOfCarrots: 12
   }
 
+  // makeCookies();
+  // makeCarrots();
+  
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
+        let cookieChecker = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+        'images/icons8-cookie-emoji-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = cookieCheckers;
+          board[i][j] = cookieChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = cookieCheckers;
+          board[i][j] = cookieChecker;
         }
       } else if (i > board[i].length - 4) {
+        let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+        'images/icons8-carrot-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = carrotCheckers;
+          board[i][j] = carrotChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = carrotCheckers;
+          board[i][j] = carrotChecker;
         }
       }
     }
   }
-  console.log(board)
   
-  stageCheckers();
+  // stageCheckers();
   winner = null;
 
   render();
@@ -125,28 +158,44 @@ function init() {
   // Render scoreboard
     // When enemy is captured, update scoreboard
     // When 0 pieces left, display winner and loser
+
 function render() {
   console.log('render is working');
-
-  nextTurn();
-
-}
-
-function stageCheckers() {
-  clearBoard();
-
-  for (let i = 0; i < boardEl.length; i++) {
-    if (i < 12) {
-      let makeCookies = document.createElement('IMG');
-      makeCookies.setAttribute('src', cookieCheckers.imgSrc);
-      boardEl[i].appendChild(makeCookies);
-    } else if (i >= 20) {
-      let makeCarrots = document.createElement('IMG');
-      makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
-      boardEl[i].appendChild(makeCarrots);
+  
+// for each element in row-0
+// if the index of element in row-0 is equal to index of element in the board array board[0],
+// and if the element in board[0] is not null
+// create an img element and set attribute to objects imgSrc
+// then append img element to the element in row-0
+  for (let i = 0; i < row0El.length; i++) {
+    if (board[0][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[0][i].imgSrc}`)
+      row0El[i].appendChild(cookie);
+      console.log(row0El[i])
+    } else {
+      console.log(board[0][i], 'should be null')
     }
   }
+
+    // nextTurn();
 }
+
+// function stageCheckers() {
+//   clearBoard();
+
+//   for (let i = 0; i < boardEl.length; i++) {
+//     if (i < 12) {
+//       let makeCookies = document.createElement('IMG');
+//       makeCookies.setAttribute('src', cookieCheckers.imgSrc);
+//       boardEl[i].appendChild(makeCookies);
+//     } else if (i >= 20) {
+//       let makeCarrots = document.createElement('IMG');
+//       makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
+//       boardEl[i].appendChild(makeCarrots);
+//     }
+//   }
+// }
 
 function clearBoard() {
   boardEl.forEach(cell => cell.hasChildNodes() ? cell.removeChild(cell.firstChild) : cell);
@@ -169,32 +218,36 @@ function clearBoard() {
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
 
-function nextTurn() {
-  if (playersTurn === 'cookiesTurn') {
-    turnEls.carrotsTurn.style.backgroundColor = 'grey';
-    turnEls.cookiesTurn.style.backgroundColor = 'none';
+// function nextTurn() {
+//   if (playersTurn === 'cookiesTurn') {
+//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
+//     turnEls.cookiesTurn.style.backgroundColor = 'none';
   
-    for (let i = 0; i < boardEl.length - 20; i++) {
-      boardEl[i].addEventListener('click', function(e) {
-        console.log(e.target);
-      });
-    } 
-  } else if (playersTurn === 'carrotsTurn') {
-    turnEls.carrotsTurn.style.backgroundColor = 'none';
-    turnEls.cookiesTurn.style.backgroundColor = 'grey';
+//     for (let i = 0; i < boardEl.length - 20; i++) {
+//       boardEl[i].addEventListener('click', function(e) {
+//         console.log(e.target);
+//       });
+//     } 
+//   } else if (playersTurn === 'carrotsTurn') {
+//     turnEls.carrotsTurn.style.backgroundColor = 'none';
+//     turnEls.cookiesTurn.style.backgroundColor = 'grey';
   
-    for (let i = 20; i < boardEl.length; i++) {
-      boardEl[i].addEventListener('click', function(e) {
-        console.log(e.target);
-      });
-    }  
-  }
-}
+//     for (let i = 20; i < boardEl.length; i++) {
+//       boardEl[i].addEventListener('click', function(e) {
+//         console.log(e.target);
+//       });
+//     }  
+//   }
+// }
 
+// function announceWinner() {
+//   if (numOfCookies === 0) {
+//     winner = alert('CARROTS WINS!!');
+//   } else {
+//     winner = alert('COOKIE WINS!!!');
+//   }
+// }
 
-console.log(boardEl)
-
-  
   // let getChecker = e.target;
   // let getCell = e.currentTarget;
   // let newCell = e.target;
@@ -207,31 +260,21 @@ console.log(boardEl)
   
 
 
-let imgClicked;
-let x = 0;
-let y = 0;
-let newPosition = board[x][y];
-let modes = ['capturing', 'nonCapturing', 'isQueen'];
+// let imgClicked;
+// let x = 0;
+// let y = 0;
+// let newPosition = board[x][y];
+// let modes = ['capturing', 'nonCapturing', 'isQueen'];
 
-function movePositions(imgClicked, currentPosition, newPosition) {
-  currentPosition = board[2][2];
+// function movePositions(imgClicked, currentPosition, newPosition) {
+//   currentPosition = board[2][2];
   
   // if (imgClicked && modesnonCapturing) {
   //   newPosition === board[x + 1][y + 1] || newPosition === board[x + 1][y - 1];
   // }
-}
+// }
 
-
-function makeCookies() {
-  let makeCookies = document.createElement('IMG');
-  makeCookies.setAttribute('src', cookieCheckers.imgSrc);
-}
-
-function makeCarrots() {
-  let makeCarrots = document.createElement('IMG');
-  makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
-}
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
-replayBtnEL.addEventListener('click', init);
+// replayBtnEL.addEventListener('click', init);
