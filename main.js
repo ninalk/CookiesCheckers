@@ -1,26 +1,25 @@
 /*----- constants -----*/
 // Constants
-// Images of cookies and carrots including king pieces (larger images)
+// Images of cookies and carrots including queen pieces (larger images)
 class Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing, position) {
+  constructor(player, imgSrc, queenImgSrc, isQueen) {
     this.player = player;
     this.imgSrc = imgSrc;
-    this.kingImgSrc = kingImgSrc;
-    this.isKing = isKing;
-    this.position = position;
+    this.queenImgSrc = queenImgSrc;
+    this.isQueen = isQueen;
   }
 }
 
 // Subclasses of Checkers class
 class CookieCheckers extends Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing, position) {
-    super(player, imgSrc, kingImgSrc, isKing, position);
+  constructor(player, imgSrc, queenImgSrc, isQueen) {
+    super(player, imgSrc, queenImgSrc, isQueen);
   }
 }
 
 class CarrotCheckers extends Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing, position) {
-    super(player, imgSrc, kingImgSrc, isKing, position);
+  constructor(player, imgSrc, queenImgSrc, isQueen) {
+    super(player, imgSrc, queenImgSrc, isQueen);
   }
 }
 
@@ -49,12 +48,10 @@ let carrotCheckers = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png'
 
 let numOfCheckers;
 let winner;
-let imgClicked;
-let newPosition;
 
-// When a piece becomes a King? Change image to larger image
-  // Player 1 - Cookie King pieces
-  // Player 2 - Carrot King pieces
+// When a piece becomes a Queen? Change image to larger image
+  // Player 1 - Cookie Queen pieces
+  // Player 2 - Carrot Queen pieces
 // Player's turn - tells users who's turn it is
   // Randomly generate who goes first and style div that holds turn
 let playersTurn;
@@ -81,17 +78,14 @@ const scoreEls = {
 // Init function - what the users see upon loading the browser
   // Initialize Player's turn
   // Each player should have all 12 pieces on the board in designated cells
-  // No player should have a King piece
+  // No player should have a Queen piece
   // State of the game - the scoreboard should show 12:12
 init();
 
 function init() {
   console.log('init is working');
 
-  playersTurn = {
-    cookiesTurn: 'grey',
-    carrotsTurn: 'none'
-  }
+  playersTurn = 'cookiesTurn';
 
   numofCheckers = {
     numOfCookies: 12,
@@ -118,7 +112,6 @@ function init() {
   console.log(board)
   
   stageCheckers();
-
   winner = null;
 
   render();
@@ -135,7 +128,7 @@ function init() {
 function render() {
   console.log('render is working');
 
-
+  // nextTurn();
 
 }
 
@@ -152,17 +145,6 @@ function stageCheckers() {
     }
   }
 }
-
-// function getPlayersTurn(lastPlayer) {
-//   if (lastPlayer === 'cookiesTurn') {
-//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
-//   } else {
-//     turnEls.cookiesTurn.style.backgrounColor = 'grey';
-//   }
-
-//   render();
-// }
-
 // Wait for user to click a cell
 
 
@@ -179,8 +161,30 @@ function stageCheckers() {
   // When zero pieces left, game over! Name the winner!
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
+
+if (playersTurn === 'cookiesTurn') {
+  turnEls.carrotsTurn.style.backgroundColor = 'grey';
+  turnEls.cookiesTurn.style.backgroundColor = 'none';
+
+  for (let i = 0; i < boardEl.length - 20; i++) {
+    boardEl[i].addEventListener('click', function(e) {
+      console.log(e.target);
+    });
+  } 
+} else {
+  turnEls.carrotsTurn.style.backgroundColor = 'none';
+  turnEls.cookiesTurn.style.backgrounColor = 'grey';
+
+  for (let i = 20; i < boardEl.length; i++) {
+    boardEl[i].addEventListener('click', function(e) {
+      console.log(e.target);
+    });
+  }  
+}
+
 boardEl.forEach(cell => cell.addEventListener('click', function(e) {
-  console.log(e.target)
+  console.log(e.currentTarget)
+  
   // let getChecker = e.target;
   // let getCell = e.currentTarget;
   // let newCell = e.target;
@@ -195,13 +199,20 @@ boardEl.forEach(cell => cell.addEventListener('click', function(e) {
 console.log(boardEl)
 
 
-function moveCheckers(imgClicked, newPosition) {
-  console.log(newPosition)
-  console.log(imgClicked)
-  if (imgClicked) {
-    newPosition.appendChild(imgClicked);
-  }
+let imgClicked;
+let x = 0;
+let y = 0;
+let newPosition = board[x][y];
+let modes = ['capturing', 'nonCapturing', 'isQueen'];
+
+function movePositions(imgClicked, currentPosition, newPosition) {
+  currentPosition = board[2][2];
+  
+  // if (imgClicked && modesnonCapturing) {
+  //   newPosition === board[x + 1][y + 1] || newPosition === board[x + 1][y - 1];
+  // }
 }
+
 
 function makeCookies() {
   let makeCookies = document.createElement('IMG');
