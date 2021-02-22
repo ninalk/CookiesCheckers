@@ -140,8 +140,83 @@ function render() {
       console.log(board[0][i], 'should be null')
     }
   }
-
-    // nextTurn();
+  // render second row (row1El)
+  for (let i = 0; i < row1El.length; i++) {
+    if (board[1][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[1][i].imgSrc}`)
+      row1El[i].appendChild(cookie);
+      console.log(row1El[i])
+    } else {
+      console.log(board[1][i], 'should be null')
+    }
+  }
+  // render third row (row2El)
+  for (let i = 0; i < row2El.length; i++) {
+    if (board[2][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[2][i].imgSrc}`)
+      row2El[i].appendChild(cookie);
+      console.log(row2El[i])
+    } else {
+      console.log(board[2][i], 'should be null')
+    }
+  }
+  // render fourth row (row3El)
+  for (let i = 0; i < row3El.length; i++) {
+    if (board[3][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[3][i].imgSrc}`)
+      row3El[i].appendChild(cookie);
+      console.log(row3El[i])
+    } else {
+      console.log(board[3][i], 'should be null')
+    }
+  }
+  // render fifth row (row4El)
+  for (let i = 0; i < row4El.length; i++) {
+    if (board[4][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[4][i].imgSrc}`)
+      row4El[i].appendChild(cookie);
+      console.log(row4El[i])
+    } else {
+      console.log(board[4][i], 'should be null')
+    }
+  }
+  // render sixth row (row5El)
+  for (let i = 0; i < row5El.length; i++) {
+    if (board[5][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[5][i].imgSrc}`)
+      row5El[i].appendChild(cookie);
+      console.log(row5El[i])
+    } else {
+      console.log(board[5][i], 'should be null')
+    }
+  }
+  // render seventh row (row6El)
+  for (let i = 0; i < row6El.length; i++) {
+    if (board[6][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[6][i].imgSrc}`)
+      row6El[i].appendChild(cookie);
+      console.log(row6El[i])
+    } else {
+      console.log(board[6][i], 'should be null')
+    }
+  }
+  // render eigth row (row7El)
+  for (let i = 0; i < row7El.length; i++) {
+    if (board[7][i] !== null) {
+      let cookie = document.createElement('IMG')
+      cookie.setAttribute('src', `${board[7][i].imgSrc}`)
+      row7El[i].appendChild(cookie);
+      console.log(row7El[i])
+    } else {
+      console.log(board[7][i], 'should be null')
+    }
+  }
 }
 
 
