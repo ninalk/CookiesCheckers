@@ -38,33 +38,6 @@ let board = [[null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null]];
 
-
-// Use classes to create CookiePieces and CarrotPieces
-let cookieCheckers = []; 
-let carrotCheckers = [];
-
-// loop to make cookies and carrots and push into the cookieCheckers & carrotCheckers arrays
-function makeCookies() {
-  let cookies = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
-  'images/icons8-cookie-emoji-96.png', false);
-  
-  for (let i = 0; i < 12; i++) {
-    cookieCheckers.push(cookies);
-  }
-  return cookieCheckers;
-}
-
-function makeCarrots() {
-  let carrots = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
-  'images/icons8-carrot-96.png', false);
-  
-  for (let i = 0; i < 12; i++) {
-    carrotCheckers.push(carrots);
-  }
-  return carrotCheckers;
-}
-
-
 let numOfCheckers;
 let winner;
 
@@ -78,7 +51,6 @@ let playersTurn;
 /*----- cached element references -----*/
 // VIEW
 // Store elements that need to be accessed multiple times throughout the game
-const boardEl = document.querySelectorAll('.black');
 const row0El = document.querySelectorAll('.row-0');
 const row1El = document.querySelectorAll('.row-1');
 const row2El = document.querySelectorAll('.row-2');
@@ -87,7 +59,6 @@ const row4El = document.querySelectorAll('.row-4');
 const row5El = document.querySelectorAll('.row-5');
 const row6El = document.querySelectorAll('.row-6');
 const row7El = document.querySelectorAll('.row-7');
-console.log(row0El)
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
@@ -118,10 +89,7 @@ function init() {
     numOfCookies: 12,
     numOfCarrots: 12
   }
-
-  // makeCookies();
-  // makeCarrots();
-  
+ 
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
@@ -144,7 +112,6 @@ function init() {
     }
   }
   
-  // stageCheckers();
   winner = null;
 
   render();
@@ -162,11 +129,7 @@ function init() {
 function render() {
   console.log('render is working');
   
-// for each element in row-0
-// if the index of element in row-0 is equal to index of element in the board array board[0],
-// and if the element in board[0] is not null
-// create an img element and set attribute to objects imgSrc
-// then append img element to the element in row-0
+  // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (board[0][i] !== null) {
       let cookie = document.createElement('IMG')
@@ -181,21 +144,6 @@ function render() {
     // nextTurn();
 }
 
-// function stageCheckers() {
-//   clearBoard();
-
-//   for (let i = 0; i < boardEl.length; i++) {
-//     if (i < 12) {
-//       let makeCookies = document.createElement('IMG');
-//       makeCookies.setAttribute('src', cookieCheckers.imgSrc);
-//       boardEl[i].appendChild(makeCookies);
-//     } else if (i >= 20) {
-//       let makeCarrots = document.createElement('IMG');
-//       makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
-//       boardEl[i].appendChild(makeCarrots);
-//     }
-//   }
-// }
 
 function clearBoard() {
   boardEl.forEach(cell => cell.hasChildNodes() ? cell.removeChild(cell.firstChild) : cell);
@@ -246,32 +194,6 @@ function clearBoard() {
 //   } else {
 //     winner = alert('COOKIE WINS!!!');
 //   }
-// }
-
-  // let getChecker = e.target;
-  // let getCell = e.currentTarget;
-  // let newCell = e.target;
-  // // moveCheckers(getChecker, appendChecker)
-  // if (getCell.hasChildNodes()) {
-  //   cell.removeChild(getChecker);
-  // } else {
-  //   newCell.appendChild();
-  // }
-  
-
-
-// let imgClicked;
-// let x = 0;
-// let y = 0;
-// let newPosition = board[x][y];
-// let modes = ['capturing', 'nonCapturing', 'isQueen'];
-
-// function movePositions(imgClicked, currentPosition, newPosition) {
-//   currentPosition = board[2][2];
-  
-  // if (imgClicked && modesnonCapturing) {
-  //   newPosition === board[x + 1][y + 1] || newPosition === board[x + 1][y - 1];
-  // }
 // }
 
 // Handle click on Reset button
