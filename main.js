@@ -2,36 +2,33 @@
 // Constants
 // Images of cookies and carrots including king pieces (larger images)
 class Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing) {
+  constructor(player, imgSrc, kingImgSrc, isKing, position) {
     this.player = player;
     this.imgSrc = imgSrc;
     this.kingImgSrc = kingImgSrc;
     this.isKing = isKing;
+    this.position = position;
   }
 }
 
 // Subclasses of Checkers class
 class CookieCheckers extends Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing) {
-    super(player, imgSrc, kingImgSrc, isKing);
+  constructor(player, imgSrc, kingImgSrc, isKing, position) {
+    super(player, imgSrc, kingImgSrc, isKing, position);
   }
 }
 
 class CarrotCheckers extends Checkers {
-  constructor(player, imgSrc, kingImgSrc, isKing) {
-    super(player, imgSrc, kingImgSrc, isKing);
+  constructor(player, imgSrc, kingImgSrc, isKing, position) {
+    super(player, imgSrc, kingImgSrc, isKing, position);
   }
 }
-
-
-// Attack can happen only if enemy is diagonally adjacent and empty space is available
-
 
 /*----- app's state (variables) -----*/
 // MODEL
 // Set State Variables - these variables can change during the game
 // Represent the board with nested arrays
-  // populate an element (ie image of each piece) with a piece object and null 
+  // populate an element with a piece object and null 
   // can represent an empty space
 let board = [[null, null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null, null],
@@ -44,10 +41,6 @@ let board = [[null, null, null, null, null, null, null, null],
 
 
   // Use classes to create CookiePieces and CarrotPieces
-  // pieces can be stored in an object
-  // each player has a total number of pieces
-  // Player 1 - cookie pieces (12)
-  // Player 2 - carrot pieces (12)
 let cookieCheckers = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
   'images/icons8-cookie-emoji-96.png', false);
   
@@ -56,6 +49,8 @@ let carrotCheckers = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png'
 
 let numOfCheckers;
 let winner;
+let imgClicked;
+let newPosition;
 
 // When a piece becomes a King? Change image to larger image
   // Player 1 - Cookie King pieces
@@ -69,7 +64,6 @@ let playersTurn;
 // Store elements that need to be accessed multiple times throughout the game
 const boardEl = document.querySelectorAll('.black');
 
-
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
   carrotsTurn: document.getElementById('carrots-turn')
@@ -81,8 +75,6 @@ const scoreEls = {
   numOfCookies: document.getElementById('num-of-cookies'),
   numOfCarrots: document.getElementById('num-of-carrots')
 }
-
-
 
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
@@ -124,6 +116,8 @@ function init() {
     }
   }
   console.log(board)
+  
+  stageCheckers();
 
   winner = null;
 
@@ -141,11 +135,11 @@ function init() {
 function render() {
   console.log('render is working');
 
-  makeCheckers();
-  
+
+
 }
 
-function makeCheckers() {
+function stageCheckers() {
   for (let i = 0; i < boardEl.length; i++) {
     if (i < 12) {
       let makeCookies = document.createElement('IMG');
@@ -157,12 +151,6 @@ function makeCheckers() {
       boardEl[i].appendChild(makeCarrots);
     }
   }
-
-  // add event listeners to all cookieCheckers and carrotCheckers
-  const imgEl = document.querySelectorAll('td.black > img');
-  imgEl.forEach(img => img.addEventListener('click', function(e) {
-    console.log(e.target);
-  }));
 }
 
 // function getPlayersTurn(lastPlayer) {
@@ -191,9 +179,39 @@ function makeCheckers() {
   // When zero pieces left, game over! Name the winner!
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
+boardEl.forEach(cell => cell.addEventListener('click', function(e) {
+  console.log(e.target)
+  // let getChecker = e.target;
+  // let getCell = e.currentTarget;
+  // let newCell = e.target;
+  // // moveCheckers(getChecker, appendChecker)
+  // if (getCell.hasChildNodes()) {
+  //   cell.removeChild(getChecker);
+  // } else {
+  //   newCell.appendChild();
+  // }
+  
+}));
+console.log(boardEl)
 
 
+function moveCheckers(imgClicked, newPosition) {
+  console.log(newPosition)
+  console.log(imgClicked)
+  if (imgClicked) {
+    newPosition.appendChild(imgClicked);
+  }
+}
 
+function makeCookies() {
+  let makeCookies = document.createElement('IMG');
+  makeCookies.setAttribute('src', cookieCheckers.imgSrc);
+}
+
+function makeCarrots() {
+  let makeCarrots = document.createElement('IMG');
+  makeCarrots.setAttribute('src', carrotCheckers.imgSrc);
+}
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
