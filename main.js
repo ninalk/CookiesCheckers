@@ -85,7 +85,7 @@ init();
 function init() {
   console.log('init is working');
 
-  playersTurn = 'cookiesTurn';
+  playersTurn = 'carrotsTurn';
 
   numofCheckers = {
     numOfCookies: 12,
@@ -128,7 +128,7 @@ function init() {
 function render() {
   console.log('render is working');
 
-  // nextTurn();
+  nextTurn();
 
 }
 
@@ -162,28 +162,31 @@ function stageCheckers() {
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
 
-if (playersTurn === 'cookiesTurn') {
-  turnEls.carrotsTurn.style.backgroundColor = 'grey';
-  turnEls.cookiesTurn.style.backgroundColor = 'none';
-
-  for (let i = 0; i < boardEl.length - 20; i++) {
-    boardEl[i].addEventListener('click', function(e) {
-      console.log(e.target);
-    });
-  } 
-} else {
-  turnEls.carrotsTurn.style.backgroundColor = 'none';
-  turnEls.cookiesTurn.style.backgrounColor = 'grey';
-
-  for (let i = 20; i < boardEl.length; i++) {
-    boardEl[i].addEventListener('click', function(e) {
-      console.log(e.target);
-    });
-  }  
+function nextTurn() {
+  if (playersTurn === 'cookiesTurn') {
+    turnEls.carrotsTurn.style.backgroundColor = 'grey';
+    turnEls.cookiesTurn.style.backgroundColor = 'none';
+  
+    for (let i = 0; i < boardEl.length - 20; i++) {
+      boardEl[i].addEventListener('click', function(e) {
+        console.log(e.target);
+      });
+    } 
+  } else if (playersTurn === 'carrotsTurn') {
+    turnEls.carrotsTurn.style.backgroundColor = 'none';
+    turnEls.cookiesTurn.style.backgroundColor = 'grey';
+  
+    for (let i = 20; i < boardEl.length; i++) {
+      boardEl[i].addEventListener('click', function(e) {
+        console.log(e.target);
+      });
+    }  
+  }
 }
 
-boardEl.forEach(cell => cell.addEventListener('click', function(e) {
-  console.log(e.currentTarget)
+
+console.log(boardEl)
+
   
   // let getChecker = e.target;
   // let getCell = e.currentTarget;
@@ -195,8 +198,6 @@ boardEl.forEach(cell => cell.addEventListener('click', function(e) {
   //   newCell.appendChild();
   // }
   
-}));
-console.log(boardEl)
 
 
 let imgClicked;
@@ -226,3 +227,4 @@ function makeCarrots() {
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
+replayBtnEL.addEventListener('click', init);
