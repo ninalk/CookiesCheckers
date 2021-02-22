@@ -85,7 +85,7 @@ init();
 function init() {
   console.log('init is working');
 
-  playersTurn = 'carrotsTurn';
+  playersTurn = 'cookiesTurn';
 
   numofCheckers = {
     numOfCookies: 12,
@@ -133,6 +133,8 @@ function render() {
 }
 
 function stageCheckers() {
+  clearBoard();
+
   for (let i = 0; i < boardEl.length; i++) {
     if (i < 12) {
       let makeCookies = document.createElement('IMG');
@@ -145,6 +147,11 @@ function stageCheckers() {
     }
   }
 }
+
+function clearBoard() {
+  boardEl.forEach(cell => cell.hasChildNodes() ? cell.removeChild(cell.firstChild) : cell);
+}
+
 // Wait for user to click a cell
 
 
