@@ -100,7 +100,6 @@ function init() {
   }
 
   checkerPiece = 'cookieChecker';
-
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
@@ -122,6 +121,28 @@ function init() {
       }
     }
   }
+
+  // for (let i = 0; i < board.length; i++) {
+  //   for (let j = 0; j < board[i].length; j++) {
+  //     if (i < board[i].length - 5) {
+  //       let cookieChecker = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+  //       'images/icons8-cookie-emoji-96.png', false);
+  //       if (i % 2 === 0 && j % 2 === 0) {
+  //         board[i][j] = cookieChecker;
+  //       } else if (i % 2 === 1 && j % 2 === 1) {
+  //         board[i][j] = cookieChecker;
+  //       }
+  //     } else if (i > board[i].length - 4) {
+  //       let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+  //       'images/icons8-carrot-96.png', false);
+  //       if (i % 2 === 0 && j % 2 === 0) {
+  //         board[i][j] = carrotChecker;
+  //       } else if (i % 2 === 1 && j % 2 === 1) {
+  //         board[i][j] = carrotChecker;
+  //       }
+  //     }
+  //   }
+  // }
   console.log(board)
   winner = null;
   // clearBoard();
@@ -165,56 +186,56 @@ function render() {
 
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
-    if (board[0][i] !== null) {
+    if (typeof board[0][i] === 'object' && board[0][i] !== null) {
       row0El[i].firstChild.setAttribute('src', `${board[0][i].imgSrc}`);
     } else {
     }
   }
   // render second row (row1El)
   for (let i = 0; i < row1El.length; i++) {
-    if (board[1][i] !== null) {
+    if (typeof board[1][i] === 'object' && board[1][i] !== null) {
       row1El[i].firstChild.setAttribute('src', `${board[1][i].imgSrc}`);
     } else {
     }
   }
   // render third row (row2El)
   for (let i = 0; i < row2El.length; i++) {
-    if (board[2][i] !== null) {
+    if (typeof board[2][i] === 'object' && board[2][i] !== null) {
       row2El[i].firstChild.setAttribute('src', `${board[2][i].imgSrc}`);
     } else {
     }
   }
   // render fourth row (row3El)
   for (let i = 0; i < row3El.length; i++) {
-    if (board[3][i] !== null) {
+    if (typeof board[3][i] === 'object' && board[3][i] !== null) {
       row3El[i].firstChild.setAttribute('src', `${board[3][i].imgSrc}`);
     } else {
     }
   }
   // render fifth row (row4El)
   for (let i = 0; i < row4El.length; i++) {
-    if (board[4][i] !== null) {
+    if (typeof board[4][i] === 'object' && board[4][i] !== null) {
       row4El[i].firstChild.setAttribute('src', `${board[4][i].imgSrc}`);
     } else {
     }
   }
   // render sixth row (row5El)
   for (let i = 0; i < row5El.length; i++) {
-    if (board[5][i] !== null) {
+    if (typeof board[5][i] === 'object' && board[5][i] !== null) {
       row5El[i].firstChild.setAttribute('src', `${board[5][i].imgSrc}`);
     } else {
     }
   }
   // render seventh row (row6El)
   for (let i = 0; i < row6El.length; i++) {
-    if (board[6][i] !== null) {
+    if (typeof board[6][i] === 'object' && board[6][i] !== null) {
       row6El[i].firstChild.setAttribute('src', `${board[6][i].imgSrc}`);
     } else {
     }
   }
   // render eigth row (row7El)
   for (let i = 0; i < row7El.length; i++) {
-    if (board[7][i] !== null) {
+    if (typeof board[7][i] === 'object' && board[7][i] !== null) {
       row7El[i].firstChild.setAttribute('src', `${board[7][i].imgSrc}`);
     } else {
     }
