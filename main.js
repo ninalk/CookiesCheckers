@@ -132,78 +132,65 @@ function render() {
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (board[0][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[0][i].imgSrc}`);
-      row0El[i].appendChild(checker);
+      row0El[i].firstChild.setAttribute('src', `${board[0][i].imgSrc}`);
     } else {
     }
   }
   // render second row (row1El)
   for (let i = 0; i < row1El.length; i++) {
     if (board[1][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[1][i].imgSrc}`)
-      row1El[i].appendChild(checker);
+      row1El[i].firstChild.setAttribute('src', `${board[1][i].imgSrc}`);
     } else {
     }
   }
   // render third row (row2El)
   for (let i = 0; i < row2El.length; i++) {
     if (board[2][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[2][i].imgSrc}`)
-      row2El[i].appendChild(checker);
+      row2El[i].firstChild.setAttribute('src', `${board[2][i].imgSrc}`);
     } else {
     }
   }
   // render fourth row (row3El)
   for (let i = 0; i < row3El.length; i++) {
     if (board[3][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[3][i].imgSrc}`)
-      row3El[i].appendChild(checker);
+      row3El[i].firstChild.setAttribute('src', `${board[3][i].imgSrc}`);
     } else {
     }
   }
   // render fifth row (row4El)
   for (let i = 0; i < row4El.length; i++) {
     if (board[4][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[4][i].imgSrc}`)
-      row4El[i].appendChild(checker);
+      row4El[i].firstChild.setAttribute('src', `${board[4][i].imgSrc}`);
     } else {
     }
   }
   // render sixth row (row5El)
   for (let i = 0; i < row5El.length; i++) {
     if (board[5][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[5][i].imgSrc}`)
-      row5El[i].appendChild(checker);
+      row5El[i].firstChild.setAttribute('src', `${board[5][i].imgSrc}`);
     } else {
     }
   }
   // render seventh row (row6El)
   for (let i = 0; i < row6El.length; i++) {
     if (board[6][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[6][i].imgSrc}`)
-      row6El[i].appendChild(checker);
+      row6El[i].firstChild.setAttribute('src', `${board[6][i].imgSrc}`);
     } else {
     }
   }
   // render eigth row (row7El)
   for (let i = 0; i < row7El.length; i++) {
     if (board[7][i] !== null) {
-      let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[7][i].imgSrc}`)
-      row7El[i].appendChild(checker);
+      row7El[i].firstChild.setAttribute('src', `${board[7][i].imgSrc}`);
     } else {
     }
   }
 
 }
 
+function getCookieCheckers() {
+  
+}
 
 function clearBoard() {
   rowArray.forEach(function(row) {
@@ -233,17 +220,19 @@ function nextTurn() {
     turnEls.carrotsTurn.style.backgroundColor = 'grey';
     turnEls.cookiesTurn.style.backgroundColor = 'none';
     
-    // add event listeners to the cookies allowed to move and empty cells
-    // for (let i = 0; i < rowArray.length; i++) {
-    //   for (let j = 0; j < rowArray[i].length; j++) {
-    //     if (rowArray[i][j].innerHTML === `${board[i][j].imgSrc}`) {
-    //       rowArray[i][j].addEventListener('click', (e) => {console.log(e.target)});
-    //     } else if (rowArray[i][j].innerHTML === null) {
-    //       console.log(rowArray[i][j].innerHTML, 'should be null')
-    //     }
+    // get cookies
 
-    //   }
-    // }
+    // add event listeners to the cookies allowed to move and empty cells
+    for (let i = 0; i < rowArray.length; i++) {
+      for (let j = 0; j < rowArray[i].length; j++) {
+        if (rowArray[i][j].innerHTML === `${board[i][j].imgSrc}`) {
+          rowArray[i][j].addEventListener('click', (e) => {console.log(e.target)});
+        } else if (rowArray[i][j].innerHTML === "") {
+          console.log(rowArray[i][j].innerHTML, 'should be empty')
+        }
+
+      }
+    }
     // if nonCapturing, allow cookie to move one space on board array [+1][+1] || [+1][-1]
     // if capturing carrot, allow cookie to move on the board array [+2][+2] || [+2][-2]
     // update numOfCheckers
