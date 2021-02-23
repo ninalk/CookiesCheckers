@@ -59,6 +59,8 @@ const row4El = document.querySelectorAll('.row-4');
 const row5El = document.querySelectorAll('.row-5');
 const row6El = document.querySelectorAll('.row-6');
 const row7El = document.querySelectorAll('.row-7');
+const rowArray = [row0El, row1El, row2El, row3El, row4El, row5El, row6El, row7El];
+console.log(rowArray)
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
@@ -83,7 +85,7 @@ init();
 function init() {
   console.log('init is working');
 
-  playersTurn = 'cookiesTurn';
+  playersTurn = 'carrotsTurn';
 
   numofCheckers = {
     numOfCookies: 12,
@@ -111,9 +113,8 @@ function init() {
       }
     }
   }
-  
   winner = null;
-
+  clearBoard();
   render();
 }
 
@@ -128,100 +129,93 @@ function init() {
 
 function render() {
   console.log('render is working');
-  
+
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (board[0][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[0][i].imgSrc}`)
-      row0El[i].appendChild(cookie);
-      console.log(row0El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[0][i].imgSrc}`)
+      row0El[i].appendChild(checker);
     } else {
-      console.log(board[0][i], 'should be null')
     }
   }
   // render second row (row1El)
   for (let i = 0; i < row1El.length; i++) {
     if (board[1][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[1][i].imgSrc}`)
-      row1El[i].appendChild(cookie);
-      console.log(row1El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[1][i].imgSrc}`)
+      row1El[i].appendChild(checker);
     } else {
-      console.log(board[1][i], 'should be null')
     }
   }
   // render third row (row2El)
   for (let i = 0; i < row2El.length; i++) {
     if (board[2][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[2][i].imgSrc}`)
-      row2El[i].appendChild(cookie);
-      console.log(row2El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[2][i].imgSrc}`)
+      row2El[i].appendChild(checker);
     } else {
-      console.log(board[2][i], 'should be null')
     }
   }
   // render fourth row (row3El)
   for (let i = 0; i < row3El.length; i++) {
     if (board[3][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[3][i].imgSrc}`)
-      row3El[i].appendChild(cookie);
-      console.log(row3El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[3][i].imgSrc}`)
+      row3El[i].appendChild(checker);
     } else {
-      console.log(board[3][i], 'should be null')
     }
   }
   // render fifth row (row4El)
   for (let i = 0; i < row4El.length; i++) {
     if (board[4][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[4][i].imgSrc}`)
-      row4El[i].appendChild(cookie);
-      console.log(row4El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[4][i].imgSrc}`)
+      row4El[i].appendChild(checker);
     } else {
-      console.log(board[4][i], 'should be null')
     }
   }
   // render sixth row (row5El)
   for (let i = 0; i < row5El.length; i++) {
     if (board[5][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[5][i].imgSrc}`)
-      row5El[i].appendChild(cookie);
-      console.log(row5El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[5][i].imgSrc}`)
+      row5El[i].appendChild(checker);
     } else {
-      console.log(board[5][i], 'should be null')
     }
   }
   // render seventh row (row6El)
   for (let i = 0; i < row6El.length; i++) {
     if (board[6][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[6][i].imgSrc}`)
-      row6El[i].appendChild(cookie);
-      console.log(row6El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[6][i].imgSrc}`)
+      row6El[i].appendChild(checker);
     } else {
-      console.log(board[6][i], 'should be null')
     }
   }
   // render eigth row (row7El)
   for (let i = 0; i < row7El.length; i++) {
     if (board[7][i] !== null) {
-      let cookie = document.createElement('IMG')
-      cookie.setAttribute('src', `${board[7][i].imgSrc}`)
-      row7El[i].appendChild(cookie);
-      console.log(row7El[i])
+      let checker = document.createElement('IMG')
+      checker.setAttribute('src', `${board[7][i].imgSrc}`)
+      row7El[i].appendChild(checker);
     } else {
-      console.log(board[7][i], 'should be null')
     }
   }
+
+  nextTurn();
 }
 
 
 function clearBoard() {
-  boardEl.forEach(cell => cell.hasChildNodes() ? cell.removeChild(cell.firstChild) : cell);
+  rowArray.forEach(function(row) {
+    for (let i = 0; i < row.length; i++) {
+      if (row[i].hasChildNodes()) {
+        row[i].removeChild(row[i].firstChild);
+      } else {
+      }
+    }
+  }); 
 }
 
 // Wait for user to click a cell
@@ -241,28 +235,24 @@ function clearBoard() {
 // Options for when player piece is a king and can move only one cell when non-capturing 
 // versus any number of cells when capturing
 
-// function nextTurn() {
-//   if (playersTurn === 'cookiesTurn') {
-//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
-//     turnEls.cookiesTurn.style.backgroundColor = 'none';
+function nextTurn() {
+  if (playersTurn === 'cookiesTurn') {
+    turnEls.carrotsTurn.style.backgroundColor = 'grey';
+    turnEls.cookiesTurn.style.backgroundColor = 'none';
   
-//     for (let i = 0; i < boardEl.length - 20; i++) {
-//       boardEl[i].addEventListener('click', function(e) {
-//         console.log(e.target);
-//       });
-//     } 
-//   } else if (playersTurn === 'carrotsTurn') {
-//     turnEls.carrotsTurn.style.backgroundColor = 'none';
-//     turnEls.cookiesTurn.style.backgroundColor = 'grey';
-  
-//     for (let i = 20; i < boardEl.length; i++) {
-//       boardEl[i].addEventListener('click', function(e) {
-//         console.log(e.target);
-//       });
-//     }  
-//   }
-// }
+    row0El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    row1El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    row2El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
 
+  } else if (playersTurn === 'carrotsTurn') {
+    turnEls.carrotsTurn.style.backgroundColor = 'none';
+    turnEls.cookiesTurn.style.backgroundColor = 'grey';
+    
+    row5El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    row6El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    row7El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+  }
+}
 // function announceWinner() {
 //   if (numOfCookies === 0) {
 //     winner = alert('CARROTS WINS!!');
@@ -274,4 +264,4 @@ function clearBoard() {
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
-// replayBtnEL.addEventListener('click', init);
+replayBtnEL.addEventListener('click', init);
