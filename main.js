@@ -26,9 +26,6 @@ class CarrotCheckers extends Checkers {
 /*----- app's state (variables) -----*/
 // MODEL
 // Set State Variables - these variables can change during the game
-// Represent the board with nested arrays
-  // populate an element with a piece object and null 
-  // can represent an empty space
 let board = [[0, null, 1, null, 2, null, 3, null],
              [null, 4, null, 5, null, 6, null, 7],
              [8, null, 9, null, 10, null, 11, null],
@@ -42,12 +39,6 @@ let numOfCheckers;
 let checkerPiece;
 let mode;
 let winner;
-
-// When a piece becomes a Queen? Change image to larger image
-  // Player 1 - Cookie Queen pieces
-  // Player 2 - Carrot Queen pieces
-// Player's turn - tells users who's turn it is
-  // Randomly generate who goes first and style div that holds turn
 let playersTurn;
 
 /*----- cached element references -----*/
@@ -122,30 +113,7 @@ function init() {
     }
   }
 
-  // for (let i = 0; i < board.length; i++) {
-  //   for (let j = 0; j < board[i].length; j++) {
-  //     if (i < board[i].length - 5) {
-  //       let cookieChecker = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
-  //       'images/icons8-cookie-emoji-96.png', false);
-  //       if (i % 2 === 0 && j % 2 === 0) {
-  //         board[i][j] = cookieChecker;
-  //       } else if (i % 2 === 1 && j % 2 === 1) {
-  //         board[i][j] = cookieChecker;
-  //       }
-  //     } else if (i > board[i].length - 4) {
-  //       let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
-  //       'images/icons8-carrot-96.png', false);
-  //       if (i % 2 === 0 && j % 2 === 0) {
-  //         board[i][j] = carrotChecker;
-  //       } else if (i % 2 === 1 && j % 2 === 1) {
-  //         board[i][j] = carrotChecker;
-  //       }
-  //     }
-  //   }
-  // }
-  console.log(board)
   winner = null;
-  // clearBoard();
   render();
 }
 
@@ -160,30 +128,8 @@ function init() {
 
 function render() {
   console.log('render is working');
+  clearBoard();
   
-  // for (let i = 0; i < rowArray.length; i++) {
-  //   for (let j = 0; j < rowArray[i].length; j++) {
-  //     if (board[0][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[0][j].imgSrc}`);
-  //     } else if (board[1][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[1][j].imgSrc}`);
-  //     } else if (board[2][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[2][j].imgSrc}`);
-  //     } else if (board[3][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[3][j].imgSrc}`);
-  //     } else if (board[4][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[4][j].imgSrc}`);
-  //     } else if (board[5][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[5][j].imgSrc}`);
-  //     } else if (board[6][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[6][j].imgSrc}`);
-  //     } else if (board[7][j] !== null) {
-  //       rowArray[i][j].firstChild.setAttribute('src', `${board[7][j].imgSrc}`);
-  //     } else {
-  //     }
-  //   }
-  // }
-
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (typeof board[0][i] === 'object' && board[0][i] !== null) {
@@ -247,7 +193,7 @@ function clearBoard() {
   rowArray.forEach(function(row) {
     for (let i = 0; i < row.length; i++) {
       if (row[i].hasChildNodes()) {
-        row[i].removeChild(row[i].firstChild);
+        row[i].firstChild.removeAttribute('src');
       } else {
       }
     }
@@ -264,46 +210,44 @@ rowArray.forEach((row, i) => row.forEach((column, j) => column.addEventListener(
   handleCheckerClick(e, i, j);
 })));
 
+let selectedPiece = null;
+
 function handleCheckerClick(e, i, j) {
-  // find index of object clicked in the board array
-  console.log ('row' + i, 'column' + j)
-  // need to get index to show available options on the board
-  // move object to available option
-  // then update board array
-  let checkerID = e.path[1].id;
-  let checkerEl = document.getElementById(checkerID);
-
-  // get position of checker object that was clicked on the board array  
-  // get id of the cell clicked
-  // get available options to move on the array
-  // move Object to available options on the array
-
-  // update the board array
-  // render
-  // isQueen?
-}
-
-
-function moveCookie(e) {
-  if (mode.nonCapturing) {
-    
-    
-    // let cellOption1 = parseInt(e.path[1].id) + 4;
-    // let cellOption2 = parseInt(e.path[1].id) + 3;
-    
-    // let targetCellOption1 = document.getElementById(cellOption1);
-    // targetCellOption1.addEventListener('click', e => {});
-    // targetCellOption1.style.border = 'grey';
-    
-    // let targetCellOption2 = document.getElementById(cellOption2);
-    // targetCellOption2.addEventListener('click', e => {});
-    // targetCellOption2.style.border = 'grey';
+  if (selectedPiece) {
+    console.log("this is the selectedPiece", selectedPiece)
+    movePiece(e, selectedPiece, i, j);
   }
+  selectedPiece = [board[i][j], i, j];
+  // find index of object clicked in the board array and get object
+  console.log ('row' + i, 'column' + j)
+  let cookie = board[i][j];
+  // need to get index to show available options on the board
+  let option1 = board[i+1][j+1];
+  let option2 = board[i+1][j-1];
+  console.log('Option 1 ID is ' + option1)
+  console.log('Option 1 ID is ' + option2)
+  
+  // if option1 is clicked, assign cookie to option1
+  option1 = cookie;
+  console.log(option1)
+  // else if option2 is clicked, assign cookie to option2
+  // isQueen?
+  // render();
+}  
 
+function movePiece(e, selectedPiece, i, j) {
+  console.log(board[i][j])
+  console.log(selectedPiece)
+  console.log(e)
+  if (typeof board[i][j] !== 'object') {
+    console.log(board[i][j])
+    console.log(selectedPiece)
+    board[i][j] = selectedPiece[0];
+    board[selectedPiece[1]][selectedPiece[2]] = null;
+  }
+  selectedPiece = null;
   render();
 }
-  
-
 
 function nextTurn() {
   if (playersTurn === 'cookiesTurn') {
