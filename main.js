@@ -60,7 +60,6 @@ const row5El = document.querySelectorAll('.row-5');
 const row6El = document.querySelectorAll('.row-6');
 const row7El = document.querySelectorAll('.row-7');
 const rowArray = [row0El, row1El, row2El, row3El, row4El, row5El, row6El, row7El];
-console.log(rowArray)
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
@@ -85,7 +84,7 @@ init();
 function init() {
   console.log('init is working');
 
-  playersTurn = 'carrotsTurn';
+  playersTurn = 'cookiesTurn';
 
   numofCheckers = {
     numOfCookies: 12,
@@ -114,7 +113,7 @@ function init() {
     }
   }
   winner = null;
-  clearBoard();
+  // clearBoard();
   render();
 }
 
@@ -129,12 +128,12 @@ function init() {
 
 function render() {
   console.log('render is working');
-
+  
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (board[0][i] !== null) {
       let checker = document.createElement('IMG')
-      checker.setAttribute('src', `${board[0][i].imgSrc}`)
+      checker.setAttribute('src', `${board[0][i].imgSrc}`);
       row0El[i].appendChild(checker);
     } else {
     }
@@ -203,7 +202,6 @@ function render() {
     }
   }
 
-  nextTurn();
 }
 
 
@@ -224,35 +222,55 @@ function clearBoard() {
 /*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
-// Handle a player clicking an empty black cells
-// Options for one move only (no enemy is diagonally adjacent)
-  // Player piece can move only to one empty cell
-// Options for when enemy is diagonally adjacent and empty cell is available
-  // Player piece can move two cells or more (if piece lands adjacent to another 
-  // enemy with an empty cell)
-// If enemy is captured, update number of pieces left in scoreboard
-  // When zero pieces left, game over! Name the winner!
-// Options for when player piece is a king and can move only one cell when non-capturing 
-// versus any number of cells when capturing
+function getCookieCheckers() {
+
+}
+
+let capturing;
 
 function nextTurn() {
   if (playersTurn === 'cookiesTurn') {
     turnEls.carrotsTurn.style.backgroundColor = 'grey';
     turnEls.cookiesTurn.style.backgroundColor = 'none';
-  
-    row0El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    row1El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    row2El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    
+    // add event listeners to the cookies allowed to move and empty cells
+    // for (let i = 0; i < rowArray.length; i++) {
+    //   for (let j = 0; j < rowArray[i].length; j++) {
+    //     if (rowArray[i][j].innerHTML === `${board[i][j].imgSrc}`) {
+    //       rowArray[i][j].addEventListener('click', (e) => {console.log(e.target)});
+    //     } else if (rowArray[i][j].innerHTML === null) {
+    //       console.log(rowArray[i][j].innerHTML, 'should be null')
+    //     }
 
+    //   }
+    // }
+    // if nonCapturing, allow cookie to move one space on board array [+1][+1] || [+1][-1]
+    // if capturing carrot, allow cookie to move on the board array [+2][+2] || [+2][-2]
+    // update numOfCheckers
+      // ifQueen, change imgSrc to Queen, allow cookie to move any direction
+
+    // after two clicks, playersTurn = 'carrotsTurn'
+           
   } else if (playersTurn === 'carrotsTurn') {
     turnEls.carrotsTurn.style.backgroundColor = 'none';
     turnEls.cookiesTurn.style.backgroundColor = 'grey';
     
-    row5El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    row6El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    row7El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    // row5El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    // row6El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
+    // row7El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
   }
+
+  render();
 }
+
+// function cookieMoves(currPosition, newPosition) {
+//   if (nonCapturing) {
+//     newPosition = board[currPosition + 1][currPosition + 1] || board[currPosition + 1][currPosition - 1];
+//   } else if (capturing) {
+//     newPosition = board[currPosition + 2][currPosition + 2] || board[currPosition + 2][currPosition - 2];
+//   }
+// }
+
 // function announceWinner() {
 //   if (numOfCookies === 0) {
 //     winner = alert('CARROTS WINS!!');
@@ -264,4 +282,4 @@ function nextTurn() {
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
-replayBtnEL.addEventListener('click', init);
+// replayBtnEL.addEventListener('click', init);
