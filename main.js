@@ -260,26 +260,23 @@ function clearBoard() {
 /*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
-rowArray.forEach(row => row.forEach(cell => cell.addEventListener('click', handleCheckerClick)));
+rowArray.forEach((row, i) => row.forEach((column, j) => column.addEventListener('click', (e) => {
+  handleCheckerClick(e, i, j);
+})));
 
-function handleCheckerClick(e) {
-  // find index of object clicked in the board array 
+function handleCheckerClick(e, i, j) {
+  // find index of object clicked in the board array
+  console.log ('row' + i, 'column' + j)
   // need to get index to show available options on the board
   // move object to available option
   // then update board array
   let checkerID = e.path[1].id;
   let checkerEl = document.getElementById(checkerID);
-  (console.log(checkerEl))
-  console.log(e.target)
-  // get position of checker object that was clicked on the board array
-  // for (let i = 0; i < board.length; i++) {
-  //   console.log(board[i].findIndex(e.target))
-  // }
-  
+
+  // get position of checker object that was clicked on the board array  
   // get id of the cell clicked
   // get available options to move on the array
   // move Object to available options on the array
-  checkerID + 4 || checkerID - 4
 
   // update the board array
   // render
