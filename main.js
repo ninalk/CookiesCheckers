@@ -29,16 +29,18 @@ class CarrotCheckers extends Checkers {
 // Represent the board with nested arrays
   // populate an element with a piece object and null 
   // can represent an empty space
-let board = [[null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null, null]];
+let board = [[0, null, 1, null, 2, null, 3, null],
+             [null, 4, null, 5, null, 6, null, 7],
+             [8, null, 9, null, 10, null, 11, null],
+             [null, 12, null, 13, null, 14, null, 15],
+             [16, null, 17, null, 18, null, 19, null],
+             [null, 20, null, 21, null, 22, null, 23],
+             [24, null, 25, null, 26, null, 27, null],
+             [null, 28, null, 29, null, 30, null, 31]];
 
 let numOfCheckers;
+let checkerPiece;
+let mode;
 let winner;
 
 // When a piece becomes a Queen? Change image to larger image
@@ -60,6 +62,7 @@ const row5El = document.querySelectorAll('.row-5');
 const row6El = document.querySelectorAll('.row-6');
 const row7El = document.querySelectorAll('.row-7');
 const rowArray = [row0El, row1El, row2El, row3El, row4El, row5El, row6El, row7El];
+
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
@@ -90,7 +93,14 @@ function init() {
     numOfCookies: 12,
     numOfCarrots: 12
   }
- 
+  
+  mode = {
+    capturing: false,
+    nonCapturing: true
+  }
+
+  checkerPiece = 'cookieChecker';
+
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
@@ -112,6 +122,7 @@ function init() {
       }
     }
   }
+  console.log(board)
   winner = null;
   // clearBoard();
   render();
@@ -129,6 +140,29 @@ function init() {
 function render() {
   console.log('render is working');
   
+  // for (let i = 0; i < rowArray.length; i++) {
+  //   for (let j = 0; j < rowArray[i].length; j++) {
+  //     if (board[0][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[0][j].imgSrc}`);
+  //     } else if (board[1][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[1][j].imgSrc}`);
+  //     } else if (board[2][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[2][j].imgSrc}`);
+  //     } else if (board[3][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[3][j].imgSrc}`);
+  //     } else if (board[4][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[4][j].imgSrc}`);
+  //     } else if (board[5][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[5][j].imgSrc}`);
+  //     } else if (board[6][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[6][j].imgSrc}`);
+  //     } else if (board[7][j] !== null) {
+  //       rowArray[i][j].firstChild.setAttribute('src', `${board[7][j].imgSrc}`);
+  //     } else {
+  //     }
+  //   }
+  // }
+
   // render first row (row0El)
   for (let i = 0; i < row0El.length; i++) {
     if (board[0][i] !== null) {
@@ -188,10 +222,6 @@ function render() {
 
 }
 
-function getCookieCheckers() {
-  
-}
-
 function clearBoard() {
   rowArray.forEach(function(row) {
     for (let i = 0; i < row.length; i++) {
@@ -209,11 +239,53 @@ function clearBoard() {
 /*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
-function getCookieCheckers() {
+rowArray.forEach(row => row.forEach(cell => cell.addEventListener('click', handleCheckerClick)));
 
+function handleCheckerClick(e) {
+  // find index of object clicked in the board array 
+  // need to get index to show available options on the board
+  // move object to available option
+  // then update board array
+  let checkerID = e.path[1].id;
+  let checkerEl = document.getElementById(checkerID);
+  (console.log(checkerEl))
+  console.log(e.target)
+  // get position of checker object that was clicked on the board array
+  // for (let i = 0; i < board.length; i++) {
+  //   console.log(board[i].findIndex(e.target))
+  // }
+  
+  // get id of the cell clicked
+  // get available options to move on the array
+  // move Object to available options on the array
+  checkerID + 4 || checkerID - 4
+
+  // update the board array
+  // render
+  // isQueen?
 }
 
-let capturing;
+
+function moveCookie(e) {
+  if (mode.nonCapturing) {
+    
+    
+    // let cellOption1 = parseInt(e.path[1].id) + 4;
+    // let cellOption2 = parseInt(e.path[1].id) + 3;
+    
+    // let targetCellOption1 = document.getElementById(cellOption1);
+    // targetCellOption1.addEventListener('click', e => {});
+    // targetCellOption1.style.border = 'grey';
+    
+    // let targetCellOption2 = document.getElementById(cellOption2);
+    // targetCellOption2.addEventListener('click', e => {});
+    // targetCellOption2.style.border = 'grey';
+  }
+
+  render();
+}
+  
+
 
 function nextTurn() {
   if (playersTurn === 'cookiesTurn') {
@@ -223,16 +295,7 @@ function nextTurn() {
     // get cookies
 
     // add event listeners to the cookies allowed to move and empty cells
-    for (let i = 0; i < rowArray.length; i++) {
-      for (let j = 0; j < rowArray[i].length; j++) {
-        if (rowArray[i][j].innerHTML === `${board[i][j].imgSrc}`) {
-          rowArray[i][j].addEventListener('click', (e) => {console.log(e.target)});
-        } else if (rowArray[i][j].innerHTML === "") {
-          console.log(rowArray[i][j].innerHTML, 'should be empty')
-        }
 
-      }
-    }
     // if nonCapturing, allow cookie to move one space on board array [+1][+1] || [+1][-1]
     // if capturing carrot, allow cookie to move on the board array [+2][+2] || [+2][-2]
     // update numOfCheckers
@@ -251,14 +314,6 @@ function nextTurn() {
 
   render();
 }
-
-// function cookieMoves(currPosition, newPosition) {
-//   if (nonCapturing) {
-//     newPosition = board[currPosition + 1][currPosition + 1] || board[currPosition + 1][currPosition - 1];
-//   } else if (capturing) {
-//     newPosition = board[currPosition + 2][currPosition + 2] || board[currPosition + 2][currPosition - 2];
-//   }
-// }
 
 // function announceWinner() {
 //   if (numOfCookies === 0) {
