@@ -60,6 +60,7 @@ const scoreEls = {
   numOfCarrots: document.getElementById('num-of-carrots')
 }
 
+const winnerEl = document.getElementById('winner');
 const replayBtnEl = document.getElementById('replay-btn');
 
 /*----- functions -----*/
@@ -75,7 +76,7 @@ function init() {
   playersTurn = 'cookiesTurn';
 
   numOfCheckers = {
-    numOfCookies: 12,
+    numOfCookies: 0,
     numOfCarrots: 12
   }
   
@@ -133,11 +134,12 @@ function render() {
     scoreEls[num].innerText = numOfCheckers[num];
 
     // render winner
-    if (numOfCheckers[num] === 0) {
-      window.alert('COOKIE WINS!!!');
+    if (num === 'numOfCarrots' && numOfCheckers[num] === 0) {
+      winnerEl.innerText = 'COOKIE WINS!!!';
+    } else if (num === 'numOfCookies' && numOfCheckers[num] === 0) {
+      winnerEl.innerText = 'CARROTS WIN!!!';
     }
-  }   
-  
+  }    
 }
 
 function clearBoard() {
