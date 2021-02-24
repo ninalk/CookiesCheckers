@@ -37,7 +37,6 @@ let board = [[0, null, 1, null, 2, null, 3, null],
 
 let numOfCheckers;
 let checkerPiece;
-let mode;
 let winner;
 let playersTurn;
 
@@ -65,7 +64,7 @@ const scoreEls = {
   numOfCarrots: document.getElementById('num-of-carrots')
 }
 
-const replayBtnEL = document.getElementById('replay-btn');
+const replayBtnEl = document.getElementById('replay-btn');
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
 // Init function - what the users see upon loading the browser
@@ -85,11 +84,6 @@ function init() {
     numOfCarrots: 12
   }
   
-  mode = {
-    capturing: false,
-    nonCapturing: true
-  }
-
   checkerPiece = 'cookieChecker';
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -112,7 +106,7 @@ function init() {
       }
     }
   }
-
+  
   winner = null;
   render();
 }
@@ -184,11 +178,10 @@ function movePiece(e, selectedPiece, i, j) {
     console.log(board[i][j])
     console.log(selectedPiece)
     board[i][j] = selectedPiece[0];
-    board[selectedPiece[1]][selectedPiece[2]] = null;
+    board[selectedPiece[1]][selectedPiece[2]] = 1;
   }
-  console.log(board[i][j])
   
-  selectedPiece = null;
+  selectedPiece = 1;
   render();
 }
 
@@ -231,4 +224,4 @@ function nextTurn() {
 // Handle click on Reset button
   // Initialize state variables 
   // Render browser
-// replayBtnEL.addEventListener('click', init);
+replayBtnEl.addEventListener('click', init);
