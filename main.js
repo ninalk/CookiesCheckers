@@ -91,7 +91,6 @@ function init() {
           board[i][j] = cookieChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
           board[i][j] = cookieChecker;
-        } else {
         }
       } else if (i > board[i].length - 4) {
         let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
@@ -100,8 +99,9 @@ function init() {
           board[i][j] = carrotChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
           board[i][j] = carrotChecker;
-        } else {
         }
+      } else {
+        board[i][j] = 1;
       }
     }
   }
@@ -175,8 +175,7 @@ function movePiece(e, selectedPiece, i, j) {
 
 function moveOptions(e, selectedPiece, i, j) {
   if (playersTurn === 'cookiesTurn') {
-    turnEls.carrotsTurn.style.backgroundColor = 'grey';
-    turnEls.cookiesTurn.style.backgroundColor = 'none';
+    turnEls.cookiesTurn.style.border = '5px solid grey';
     
     let option1 = board[i+1][j+1];
     let option2 = board[i+1][j-1];
@@ -185,8 +184,7 @@ function moveOptions(e, selectedPiece, i, j) {
     console.log('Option 1 ID is ' + option2)
 
   } else if (playersTurn === 'carrotsTurn') {
-    turnEls.carrotsTurn.style.backgroundColor = 'none';
-    turnEls.cookiesTurn.style.backgroundColor = 'grey';
+    turnEls.carrotsTurn.style.border = '5px solid grey';
   }
 
 }
