@@ -1,5 +1,4 @@
 /*----- constants -----*/
-// Constants
 // Images of cookies and carrots including queen pieces (larger images)
 class Checkers {
   constructor(player, imgSrc, queenImgSrc, isQueen) {
@@ -24,16 +23,15 @@ class CarrotCheckers extends Checkers {
 }
 
 /*----- app's state (variables) -----*/
-// MODEL
 // Set State Variables - these variables can change during the game
-let board = [[0, null, 1, null, 2, null, 3, null],
-             [null, 4, null, 5, null, 6, null, 7],
-             [8, null, 9, null, 10, null, 11, null],
-             [null, 12, null, 13, null, 14, null, 15],
-             [16, null, 17, null, 18, null, 19, null],
-             [null, 20, null, 21, null, 22, null, 23],
-             [24, null, 25, null, 26, null, 27, null],
-             [null, 28, null, 29, null, 30, null, 31]];
+let board = [[1, null, 1, null, 1, null, 1, null],
+             [null, 1, null, 1, null, 1, null, 1],
+             [1, null, 1, null, 1, null, 1, null],
+             [null, 1, null, 1, null, 1, null, 1],
+             [1, null, 1, null, 1, null, 1, null],
+             [null, 1, null, 1, null, 1, null, 1],
+             [1, null, 1, null, 1, null, 1, null],
+             [null, 1, null, 1, null, 1, null, 1]];
 
 let numOfCheckers;
 let checkerPiece;
@@ -41,7 +39,6 @@ let winner;
 let playersTurn;
 
 /*----- cached element references -----*/
-// VIEW
 // Store elements that need to be accessed multiple times throughout the game
 const row0El = document.querySelectorAll('.row-0');
 const row1El = document.querySelectorAll('.row-1');
@@ -52,7 +49,6 @@ const row5El = document.querySelectorAll('.row-5');
 const row6El = document.querySelectorAll('.row-6');
 const row7El = document.querySelectorAll('.row-7');
 const rowArray = [row0El, row1El, row2El, row3El, row4El, row5El, row6El, row7El];
-
 
 const turnEls = {
   cookiesTurn: document.getElementById('cookies-turn'),
@@ -65,13 +61,12 @@ const scoreEls = {
 }
 
 const replayBtnEl = document.getElementById('replay-btn');
+
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
 // Init function - what the users see upon loading the browser
   // Initialize Player's turn
-  // Each player should have all 12 pieces on the board in designated cells
-  // No player should have a Queen piece
-  // State of the game - the scoreboard should show 12:12
+
 init();
 
 function init() {
@@ -85,6 +80,8 @@ function init() {
   }
   
   checkerPiece = 'cookieChecker';
+  
+  // initialize board array with 12 cookies and 12 carrots
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
@@ -94,6 +91,7 @@ function init() {
           board[i][j] = cookieChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
           board[i][j] = cookieChecker;
+        } else {
         }
       } else if (i > board[i].length - 4) {
         let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
@@ -102,6 +100,7 @@ function init() {
           board[i][j] = carrotChecker;
         } else if (i % 2 === 1 && j % 2 === 1) {
           board[i][j] = carrotChecker;
+        } else {
         }
       }
     }
@@ -112,18 +111,11 @@ function init() {
 }
 
 // Render function - responsible for transferring all state variables
-  // Render the board
-    // Populate each player's pieces in designated cell on the board
-    // If empty cell is clicked, player's piece should occupy empty cell
-    // If enemy is captured, remove enemy from cell
-  // Render scoreboard
-    // When enemy is captured, update scoreboard
-    // When 0 pieces left, display winner and loser
-
 function render() {
   console.log('render is working');
   clearBoard();
-  
+      
+  // render state of board array
   for (let i = 0; i < rowArray.length; i++) {
     for (let j = 0; j < rowArray[i].length; j++) {
       if (typeof board[i][j] === 'object' && board[i][j] !== null) {
@@ -131,7 +123,13 @@ function render() {
       } else {
       }
     }
+
   }
+  // render players turn
+  // nextTurn();    
+  // render scoreboard
+     
+  // render winner
 }
 
 function clearBoard() {
@@ -147,7 +145,6 @@ function clearBoard() {
 
 // Wait for user to click a cell
 
-
 /*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
@@ -159,24 +156,15 @@ let selectedPiece = null;
 
 function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
-    console.log("this is the selectedPiece", selectedPiece)
     movePiece(e, selectedPiece, i, j);
   }
   selectedPiece = [board[i][j], i, j];
-  // find index of object clicked in the board array and get object
-  // need to get index to show available options on the board
-  let option1 = board[i+1][j+1];
-  let option2 = board[i+1][j-1];
-  // console.log('Option 1 ID is ' + option1)
-  // console.log('Option 1 ID is ' + option2)
   
   // isQueen?
 }  
 
 function movePiece(e, selectedPiece, i, j) {
   if (typeof board[i][j] !== 'object') {
-    console.log(board[i][j])
-    console.log(selectedPiece)
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = 1;
   }
@@ -185,33 +173,35 @@ function movePiece(e, selectedPiece, i, j) {
   render();
 }
 
-function nextTurn() {
+function moveOptions(e, selectedPiece, i, j) {
   if (playersTurn === 'cookiesTurn') {
     turnEls.carrotsTurn.style.backgroundColor = 'grey';
     turnEls.cookiesTurn.style.backgroundColor = 'none';
     
-    // get cookies
+    let option1 = board[i+1][j+1];
+    let option2 = board[i+1][j-1];
+        
+    console.log('Option 1 ID is ' + option1)
+    console.log('Option 1 ID is ' + option2)
 
-    // add event listeners to the cookies allowed to move and empty cells
-
-    // if nonCapturing, allow cookie to move one space on board array [+1][+1] || [+1][-1]
-    // if capturing carrot, allow cookie to move on the board array [+2][+2] || [+2][-2]
-    // update numOfCheckers
-      // ifQueen, change imgSrc to Queen, allow cookie to move any direction
-
-    // after two clicks, playersTurn = 'carrotsTurn'
-           
   } else if (playersTurn === 'carrotsTurn') {
     turnEls.carrotsTurn.style.backgroundColor = 'none';
     turnEls.cookiesTurn.style.backgroundColor = 'grey';
-    
-    // row5El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    // row6El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
-    // row7El.forEach(element => element.addEventListener('click', e => console.log(e.target)));
   }
 
-  render();
 }
+
+// function nextTurn(playersTurn) {
+//   if (playersTurn === 'cookiesTurn') {
+//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
+//     turnEls.cookiesTurn.style.backgroundColor = 'none';
+
+//   } else if (playersTurn === 'carrotsTurn') {
+//     turnEls.carrotsTurn.style.backgroundColor = 'none';
+//     turnEls.cookiesTurn.style.backgroundColor = 'grey';
+//   }
+
+// }
 
 // function announceWinner() {
 //   if (numOfCookies === 0) {
@@ -222,6 +212,4 @@ function nextTurn() {
 // }
 
 // Handle click on Reset button
-  // Initialize state variables 
-  // Render browser
 replayBtnEl.addEventListener('click', init);
