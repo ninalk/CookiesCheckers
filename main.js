@@ -130,63 +130,14 @@ function render() {
   console.log('render is working');
   clearBoard();
   
-  // render first row (row0El)
-  for (let i = 0; i < row0El.length; i++) {
-    if (typeof board[0][i] === 'object' && board[0][i] !== null) {
-      row0El[i].firstChild.setAttribute('src', `${board[0][i].imgSrc}`);
-    } else {
+  for (let i = 0; i < rowArray.length; i++) {
+    for (let j = 0; j < rowArray[i].length; j++) {
+      if (typeof board[i][j] === 'object' && board[i][j] !== null) {
+        rowArray[i][j].firstChild.setAttribute('src', `${board[i][j].imgSrc}`);
+      } else {
+      }
     }
   }
-  // render second row (row1El)
-  for (let i = 0; i < row1El.length; i++) {
-    if (typeof board[1][i] === 'object' && board[1][i] !== null) {
-      row1El[i].firstChild.setAttribute('src', `${board[1][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render third row (row2El)
-  for (let i = 0; i < row2El.length; i++) {
-    if (typeof board[2][i] === 'object' && board[2][i] !== null) {
-      row2El[i].firstChild.setAttribute('src', `${board[2][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render fourth row (row3El)
-  for (let i = 0; i < row3El.length; i++) {
-    if (typeof board[3][i] === 'object' && board[3][i] !== null) {
-      row3El[i].firstChild.setAttribute('src', `${board[3][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render fifth row (row4El)
-  for (let i = 0; i < row4El.length; i++) {
-    if (typeof board[4][i] === 'object' && board[4][i] !== null) {
-      row4El[i].firstChild.setAttribute('src', `${board[4][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render sixth row (row5El)
-  for (let i = 0; i < row5El.length; i++) {
-    if (typeof board[5][i] === 'object' && board[5][i] !== null) {
-      row5El[i].firstChild.setAttribute('src', `${board[5][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render seventh row (row6El)
-  for (let i = 0; i < row6El.length; i++) {
-    if (typeof board[6][i] === 'object' && board[6][i] !== null) {
-      row6El[i].firstChild.setAttribute('src', `${board[6][i].imgSrc}`);
-    } else {
-    }
-  }
-  // render eigth row (row7El)
-  for (let i = 0; i < row7El.length; i++) {
-    if (typeof board[7][i] === 'object' && board[7][i] !== null) {
-      row7El[i].firstChild.setAttribute('src', `${board[7][i].imgSrc}`);
-    } else {
-    }
-  }
-
 }
 
 function clearBoard() {
@@ -219,32 +170,24 @@ function handleCheckerClick(e, i, j) {
   }
   selectedPiece = [board[i][j], i, j];
   // find index of object clicked in the board array and get object
-  console.log ('row' + i, 'column' + j)
-  let cookie = board[i][j];
   // need to get index to show available options on the board
   let option1 = board[i+1][j+1];
   let option2 = board[i+1][j-1];
-  console.log('Option 1 ID is ' + option1)
-  console.log('Option 1 ID is ' + option2)
+  // console.log('Option 1 ID is ' + option1)
+  // console.log('Option 1 ID is ' + option2)
   
-  // if option1 is clicked, assign cookie to option1
-  option1 = cookie;
-  console.log(option1)
-  // else if option2 is clicked, assign cookie to option2
   // isQueen?
-  // render();
 }  
 
 function movePiece(e, selectedPiece, i, j) {
-  console.log(board[i][j])
-  console.log(selectedPiece)
-  console.log(e)
   if (typeof board[i][j] !== 'object') {
     console.log(board[i][j])
     console.log(selectedPiece)
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = null;
   }
+  console.log(board[i][j])
+  
   selectedPiece = null;
   render();
 }
