@@ -34,7 +34,7 @@ let board = [[1, null, 1, null, 1, null, 1, null],
              [null, 1, null, 1, null, 1, null, 1]];
 
 let numOfCheckers;
-let checkerPiece;
+let checkerPieces;
 let winner;
 let playersTurn;
 
@@ -74,31 +74,31 @@ function init() {
 
   playersTurn = 'cookiesTurn';
 
-  numofCheckers = {
+  numOfCheckers = {
     numOfCookies: 12,
     numOfCarrots: 12
   }
   
-  checkerPiece = 'cookieChecker';
+  checkerPieces = 'cookiePieces';
   
   // initialize board array with 12 cookies and 12 carrots
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
-        let cookieChecker = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+        let cookies = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
         'images/icons8-cookie-emoji-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = cookieChecker;
+          board[i][j] = cookies;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = cookieChecker;
-        }
+          board[i][j] = cookies;
+        } 
       } else if (i > board[i].length - 4) {
-        let carrotChecker = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+        let carrots = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
         'images/icons8-carrot-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = carrotChecker;
+          board[i][j] = carrots;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = carrotChecker;
+          board[i][j] = carrots;
         }
       } else {
         board[i][j] = 1;
@@ -129,8 +129,15 @@ function render() {
   // render players turn and move options
   // moveOptions(e, selectedPiece, i, j);    
   // render scoreboard
-     
-  // render winner
+  for (let num in numOfCheckers) {
+    scoreEls[num].innerText = numOfCheckers[num];
+
+    // render winner
+    if (numOfCheckers[num] === 0) {
+      window.alert('COOKIE WINS!!!');
+    }
+  }   
+  
 }
 
 function clearBoard() {
@@ -178,59 +185,57 @@ function movePiece(e, selectedPiece, i, j) {
 let capturing;
 
 function moveOptions(e, selectedPiece, i, j) {
-  console.log(selectedPiece)
   if (playersTurn === 'cookiesTurn') {
     turnEls.cookiesTurn.style.border = '5px solid grey';
+    deactivateCarrots();
+    
     if (!capturing) {
       let option1 = `${selectedPiece[1]+1}, ${selectedPiece[2]+1}`;
       let option2 = `${selectedPiece[1]+1}, ${selectedPiece[2]-1}`;
       console.log('Option 1 is board index ' + option1)
       console.log('Option 2 is board index ' + option2)
+      // style options?
     } else if (capturing) {
-      let option3 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
-      let option4 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
-      console.log('Option 3 is board index ' + option3)
-      console.log('Option 4 is board index ' + option4)
+      let option1 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
+      let option2 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
+      console.log('Option 1 is board index ' + option1)
+      console.log('Option 2 is board index ' + option2)
+      // style options?
+      // update the scores
+      numOfCheckers[numofCookies]--;
     } else if (isQueen) {
       console.log('Queen cookie can move anywhere!')
     }
   } else if (playersTurn === 'carrotsTurn') {
     turnEls.carrotsTurn.style.border = '5px solid grey';
+    deactivateCookies();
 
     let option1 = `${selectedPiece[1]-1}, ${selectedPiece[2]-1}`;
     let option2 = `${selectedPiece[1]-1}, ${selectedPiece[2]+1}`;
     console.log('Option 1 is board index ' + option1)
     console.log('Option 2 is board index ' + option2)
+    // style options?
   } else if (capturing) {
-    let option3 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
-    let option4 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
-    console.log('Option 3 is board index ' + option3)
-    console.log('Option 4 is board index ' + option4)
+    let option1 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
+    let option2 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
+    console.log('Option 1 is board index ' + option1)
+    console.log('Option 2 is board index ' + option2)
+    // style options?
+    // update scores
+    numOfCheckers[numOfCookies]--;
+
   } else if (isQueen) {
     console.log('Queen carrot can move anywhere!')
   }
 
 }
 
-// function nextTurn(playersTurn) {
-//   if (playersTurn === 'cookiesTurn') {
-//     turnEls.carrotsTurn.style.backgroundColor = 'grey';
-//     turnEls.cookiesTurn.style.backgroundColor = 'none';
+function deactivateCarrots() {
 
-//   } else if (playersTurn === 'carrotsTurn') {
-//     turnEls.carrotsTurn.style.backgroundColor = 'none';
-//     turnEls.cookiesTurn.style.backgroundColor = 'grey';
-//   }
+};
+function deactivateCookies() {
 
-// }
-
-// function announceWinner() {
-//   if (numOfCookies === 0) {
-//     winner = alert('CARROTS WINS!!');
-//   } else {
-//     winner = alert('COOKIE WINS!!!');
-//   }
-// }
+};
 
 // Handle click on Reset button
 replayBtnEl.addEventListener('click', init);

@@ -25,6 +25,17 @@ h1 {
   grid-row: 2 / span 2;
 }
 
+#winner {
+  color:rgb(198, 80, 107);
+  font-size: 40px;
+  font-weight: bolder;
+  height: 140px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  margin-top: 40px;
+}
+
 #checkers-board {
   margin: auto;
   border-collapse: collapse;
