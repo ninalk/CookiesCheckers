@@ -35,7 +35,6 @@ let board = [[1, null, 1, null, 1, null, 1, null],
 
 let numOfCheckers;
 let checkerPieces;
-let winner;
 let playersTurn;
 
 /*----- cached element references -----*/
@@ -61,6 +60,7 @@ const scoreEls = {
 }
 
 const winnerEl = document.getElementById('winner');
+
 const replayBtnEl = document.getElementById('replay-btn');
 
 /*----- functions -----*/
@@ -76,7 +76,7 @@ function init() {
   playersTurn = 'cookiesTurn';
 
   numOfCheckers = {
-    numOfCookies: 0,
+    numOfCookies: 12,
     numOfCarrots: 12
   }
   
@@ -106,8 +106,7 @@ function init() {
       }
     }
   }
-  
-  winner = null;
+  winnerEl.style.visibility = "hidden";
   // moveOptions();
   render();
 }
@@ -129,6 +128,7 @@ function render() {
   }
   // render players turn and move options
   // moveOptions(e, selectedPiece, i, j);    
+  
   // render scoreboard
   for (let num in numOfCheckers) {
     scoreEls[num].innerText = numOfCheckers[num];
@@ -136,9 +136,12 @@ function render() {
     // render winner
     if (num === 'numOfCarrots' && numOfCheckers[num] === 0) {
       winnerEl.innerText = 'COOKIE WINS!!!';
+      winnerEl.style.visibility = "visible";
     } else if (num === 'numOfCookies' && numOfCheckers[num] === 0) {
       winnerEl.innerText = 'CARROTS WIN!!!';
+      winnerEl.style.visibility = "visible";
     }
+  
   }    
 }
 
