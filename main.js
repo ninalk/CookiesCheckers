@@ -107,6 +107,7 @@ function init() {
   }
   
   winner = null;
+  // moveOptions();
   render();
 }
 
@@ -125,8 +126,8 @@ function render() {
     }
 
   }
-  // render players turn
-  // nextTurn();    
+  // render players turn and move options
+  // moveOptions(e, selectedPiece, i, j);    
   // render scoreboard
      
   // render winner
@@ -157,6 +158,7 @@ let selectedPiece = null;
 function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
     movePiece(e, selectedPiece, i, j);
+    moveOptions(e, selectedPiece, i, j);
   }
   selectedPiece = [board[i][j], i, j];
   
@@ -173,18 +175,39 @@ function movePiece(e, selectedPiece, i, j) {
   render();
 }
 
+let capturing;
+
 function moveOptions(e, selectedPiece, i, j) {
+  console.log(selectedPiece)
   if (playersTurn === 'cookiesTurn') {
     turnEls.cookiesTurn.style.border = '5px solid grey';
-    
-    let option1 = board[i+1][j+1];
-    let option2 = board[i+1][j-1];
-        
-    console.log('Option 1 ID is ' + option1)
-    console.log('Option 1 ID is ' + option2)
-
+    if (!capturing) {
+      let option1 = `${selectedPiece[1]+1}, ${selectedPiece[2]+1}`;
+      let option2 = `${selectedPiece[1]+1}, ${selectedPiece[2]-1}`;
+      console.log('Option 1 is board index ' + option1)
+      console.log('Option 2 is board index ' + option2)
+    } else if (capturing) {
+      let option3 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
+      let option4 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
+      console.log('Option 3 is board index ' + option3)
+      console.log('Option 4 is board index ' + option4)
+    } else if (isQueen) {
+      console.log('Queen cookie can move anywhere!')
+    }
   } else if (playersTurn === 'carrotsTurn') {
     turnEls.carrotsTurn.style.border = '5px solid grey';
+
+    let option1 = `${selectedPiece[1]-1}, ${selectedPiece[2]-1}`;
+    let option2 = `${selectedPiece[1]-1}, ${selectedPiece[2]+1}`;
+    console.log('Option 1 is board index ' + option1)
+    console.log('Option 2 is board index ' + option2)
+  } else if (capturing) {
+    let option3 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
+    let option4 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
+    console.log('Option 3 is board index ' + option3)
+    console.log('Option 4 is board index ' + option4)
+  } else if (isQueen) {
+    console.log('Queen carrot can move anywhere!')
   }
 
 }
