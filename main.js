@@ -107,7 +107,6 @@ function init() {
     }
   }
   winnerEl.style.visibility = 'hidden';
-  // moveOptions();
   render();
 }
 
@@ -132,7 +131,8 @@ function render() {
     turnEls.cookiesTurn.style.border = '5px solid grey';
     turnEls.carrotsTurn.style.border = 'none';
   }
-  // moveOptions(e, selectedPiece, i, j);    
+  // moveOptions(e, selectedPiece, i, j); 
+
 
   // render scoreboard
   for (let num in numOfCheckers) {
@@ -173,10 +173,12 @@ rowArray.forEach((row, i) => row.forEach((column, j) => column.addEventListener(
 let selectedPiece = null;
 
 function handleCheckerClick(e, i, j) {
-  // console.log(playersTurn, ' this is the playersTurn')
-  // console.log(board[i][j].player, ' this is the checkers player')
-  console.log(selectedPiece, ' this is selectedPiece before change')
   if (selectedPiece) {
+    // allow or prevent 
+    // if (cant move) return  
+    if (selectedPiece && isValidMove(selectedPiece, i , j)) {
+      return;
+    }
     movePiece(e, selectedPiece, i, j);
     selectedPiece = null;
     nextTurn();
@@ -185,67 +187,80 @@ function handleCheckerClick(e, i, j) {
     selectedPiece = [board[i][j], i, j];
     moveOptions(e, selectedPiece, i, j);
   } 
-  console.log(selectedPiece, ' this is selectedPiece after change')
 }  
 
 function movePiece(e, selectedPiece, i, j) {
+  // console.log(selectedPiece, ' this is selectedPiece before move')
   if (typeof board[i][j] !== 'object') {
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = 1;
-  } 
-}
-
-let capturing;
-
-function moveOptions(e, selectedPiece, i, j) {
-  if (selectedPiece[0].player === 'cookies') {
-    if (!capturing) {
-      let option1 = `${selectedPiece[1]+1}, ${selectedPiece[2]+1}`;
-      let option2 = `${selectedPiece[1]+1}, ${selectedPiece[2]-1}`;
-      console.log('Option 1 is board index ' + option1)
-      console.log('Option 2 is board index ' + option2)
-      // style options?
-    } else if (capturing) {
-      let option1 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
-      let option2 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
-      console.log('Option 1 is board index ' + option1)
-      console.log('Option 2 is board index ' + option2)
-      // style options?
-      // update the scores
-      numOfCheckers[numofCookies]--;
-    }// } else if (isQueen) {
-    //   console.log('Queen cookie can move anywhere!')
-    // }
-  } else if (selectedPiece[0].player === 'carrots') {
-    let option1 = `${selectedPiece[1]-1}, ${selectedPiece[2]-1}`;
-    let option2 = `${selectedPiece[1]-1}, ${selectedPiece[2]+1}`;
-    console.log('Option 1 is board index ' + option1)
-    console.log('Option 2 is board index ' + option2)
-    // style options?
-  } else if (capturing) {
-    let option1 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
-    let option2 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
-    console.log('Option 1 is board index ' + option1)
-    console.log('Option 2 is board index ' + option2)
-    // style options?
-    // update scores
-    numOfCheckers[numOfCookies]--;
   }
-  // } else if (isQueen) {
-  //   console.log('Queen carrot can move anywhere!')
-  // }
   
 }
 
+function isValidMove(selectedPiece, i , j) {
+  // console.log(i, ' is the new row index')
+  // console.log(j, ' is the new col index')
+  if (selectedPiece[0].player === 'cookies') {
+    console.log(selectedPiece[0].player)
+    let validRow1 = selectedPiece[1]+1; // noncapturing
+    let validCol1 = selectedPiece[2]+1; // noncapturing
+    let validCol2 = selectedPiece[2]-1; // noncapturing
+    let validRow2 = selectedPiece[1]+2; // capturing
+    let validCol3 = selectedPiece[2]+2; // capturing
+    let validCol4 = selectedPiece[2]-2; // capturing
+    if (!(i === validRow1 && j === validCol1)|| !(i === validRow1 && j === validCol2) ||
+    !(i === validRow2 && j === validCol3) || !(i === validRow2 && j === validCol4)) {
+      return;
+    }
+  } else if (selectedPiece[0].player === 'carrots') {
+    let validRow1 = selectedPiece[1]-1; // noncapturing
+    let validCol1 = selectedPiece[2]-1; // noncapturing
+    let validCol2 = selectedPiece[2]+1; // noncapturing
+    let validRow2 = selectedPiece[1]-2; // capturing
+    let validCol3 = selectedPiece[2]-2; // capturing
+    let validCol4 = selectedPiece[2]+2; // capturing
+    if (!(i === validRow1 && j === validCol1)|| !(i === validRow1 && j === validCol2) ||
+      !(i === validRow2 && j === validCol3) || !(i === validRow2 && j === validCol4)) {
+        return;
+    }
+  }
+}
+
+function moveOptions(e, selectedPiece, i, j) {
+  if (selectedPiece[0].player === 'cookies') {
+    let option1 = `${selectedPiece[1]+1}, ${selectedPiece[2]+1}`;
+    let option2 = `${selectedPiece[1]+1}, ${selectedPiece[2]-1}`;
+    // console.log('Option 1 is board index ' + option1)
+    // console.log('Option 2 is board index ' + option2)
+    let option3 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
+    let option4 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
+    // let option3 = `${selectedPiece[1]+4}, ${selectedPiece[2]+4}`;
+    // let option4 = `${selectedPiece[1]+4}, ${selectedPiece[2]-4}`;
+    // let option5 = `${selectedPiece[1]+4}, ${selectedPiece[2]-0}`;
+    // console.log('Option 3 is board index ' + option3)
+    // console.log('Option 4 is board index ' + option4)
+  } else if (selectedPiece[0].player === 'carrots') {
+    let option1 = `${selectedPiece[1]-1}, ${selectedPiece[2]-1}`;
+    let option2 = `${selectedPiece[1]-1}, ${selectedPiece[2]+1}`;
+    // console.log('Option 1 is board index ' + option1)
+    // console.log('Option 2 is board index ' + option2)
+    let option3 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
+    let option4 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
+    // let option3 = `${selectedPiece[1]-4}, ${selectedPiece[2]-4}`;
+    // let option4 = `${selectedPiece[1]-4}, ${selectedPiece[2]+4}`;
+    // let option5 = `${selectedPiece[1]-4}, ${selectedPiece[2]-0}`;
+    // console.log('Option 3 is board index ' + option3)
+    // console.log('Option 4 is board index ' + option4)
+  } 
+}
+
 function nextTurn() {
-  // console.log(playersTurn, ' before switch')
   if (playersTurn === 'cookies') {
     playersTurn = 'carrots';
   } else if (playersTurn === 'carrots') {
     playersTurn = 'cookies';
   }
-  // console.log(playersTurn, ' after switch')
-
 }
 
 function updateScore() {
