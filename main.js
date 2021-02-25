@@ -160,6 +160,7 @@ function handleCheckerClick(e, i, j) {
     }
     movePiece(e, selectedPiece, i, j);
     removePiece(selectedPiece, i, j);
+    isQueen(selectedPiece, i, j);
     selectedPiece = null;
     nextTurn();
     render();
@@ -186,8 +187,6 @@ function isValidMove(selectedPiece, i , j) {
     if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
     (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
       return true;
-    } else {
-      return false;
     }
   } else if (selectedPiece[0].player === 'carrots') {
     let validRow1 = selectedPiece[1]-1; // noncapturing
@@ -199,9 +198,28 @@ function isValidMove(selectedPiece, i , j) {
     if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
     (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
       return true;
-    } else {
-      return false;
     }
+  } else if (selectedPiece[0].player === 'cookies' && selectedPiece.isQueen) {
+    for (let x = 0; x < board.length; x++) {
+      for (let y = 0; y < board[x].length; y++) {
+        if (x % 2 === 0 && y % 2 === 0) {
+          let validRow = x;
+          let validCol = y;
+          console.log(validRow, validCol)
+          if (i === validRow && j === validCol) {
+            return true;
+          }
+        } else if (x % 2 === 1 && y % 2 === 1) {
+          let validRow = x;
+          let validCol = y;
+          if (i === validRow && j === validCol) {
+            return true;
+          }
+        }
+      }
+    }
+  } else if (selectedPiece[0].player === 'carrots' && isQueen(selectedPiece, i, j)) {
+
   }
 }
 
@@ -222,6 +240,40 @@ function removePiece(selectedPiece, i, j) {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     }
+  }
+}
+
+function isQueen(selectedPiece, i, j) {
+  // if cookie object lands on board array row 7, cookie isQueen
+  // if carrot object lands on board array row 0, carrot isQueen
+  if (selectedPiece[0].player === 'cookies') {
+    let queenPositions = [];
+    board[7].map(function(col) {
+      if (board[7].indexOf(col) % 2 === 1) {
+        queenPositions.push(board[7].indexOf(col));
+      }
+    });
+    for (let x = 0; x < queenPositions.length; x++) {
+      if (board[i][j] === board[7][queenPositions[x]]) {
+        selectedPiece[0].isQueen = true;
+        console.log(selectedPiece[0], ' is Queen')
+      }  
+    }
+    return true;
+  } else if (selectedPiece[0].player === 'carrots') {
+    let queenPositions = [];
+    board[0].map(function(col) {
+      if (board[7].indexOf(col) % 2 === 0) {
+        queenPositions.push(board[7].indexOf(col));
+      }
+    });
+    for (let x = 0; x < queenPositions.length; x++) {
+      if (board[i][j] === board[0][queenPositions[x]]) {
+        selectedPiece[0].isQueen = true;
+        console.log(selectedPiece[0], ' is Queen')
+      }  
+    }
+    return true;
   }
 }
 
