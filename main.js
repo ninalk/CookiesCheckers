@@ -176,7 +176,7 @@ function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
     // allow or prevent 
     // if (cant move) return  
-    if (selectedPiece && isValidMove(selectedPiece, i , j)) {
+    if (!isValidMove(selectedPiece, i , j)) {
       return;
     }
     movePiece(e, selectedPiece, i, j);
@@ -209,9 +209,11 @@ function isValidMove(selectedPiece, i , j) {
     let validRow2 = selectedPiece[1]+2; // capturing
     let validCol3 = selectedPiece[2]+2; // capturing
     let validCol4 = selectedPiece[2]-2; // capturing
-    if (!(i === validRow1 && j === validCol1)|| !(i === validRow1 && j === validCol2) ||
-    !(i === validRow2 && j === validCol3) || !(i === validRow2 && j === validCol4)) {
-      return;
+    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
+    (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
+      return true;
+    } else {
+      return false;
     }
   } else if (selectedPiece[0].player === 'carrots') {
     let validRow1 = selectedPiece[1]-1; // noncapturing
@@ -220,9 +222,11 @@ function isValidMove(selectedPiece, i , j) {
     let validRow2 = selectedPiece[1]-2; // capturing
     let validCol3 = selectedPiece[2]-2; // capturing
     let validCol4 = selectedPiece[2]+2; // capturing
-    if (!(i === validRow1 && j === validCol1)|| !(i === validRow1 && j === validCol2) ||
-      !(i === validRow2 && j === validCol3) || !(i === validRow2 && j === validCol4)) {
-        return;
+    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
+      (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
+        return true;
+    } else {
+      return false;
     }
   }
 }
