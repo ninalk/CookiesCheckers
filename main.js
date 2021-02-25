@@ -155,11 +155,11 @@ let selectedPiece = null;
 function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
     if (!isValidMove(selectedPiece, i , j)) {
+      selectedPiece = null;
       return;
     }
     movePiece(e, selectedPiece, i, j);
     removePiece(selectedPiece, i, j);
-    isQueen(selectedPiece, i , j);
     selectedPiece = null;
     nextTurn();
     render();
@@ -207,22 +207,18 @@ function isValidMove(selectedPiece, i , j) {
 
 function removePiece(selectedPiece, i, j) {
   if (selectedPiece[0].player === 'cookies') {
-    let jumpPosition1 = board[selectedPiece[1]+2][selectedPiece[2]+2];
-    let jumpPosition2 = board[selectedPiece[1]+2][selectedPiece[2]-2];
-    if (board[i][j] === jumpPosition1) {
+    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2) {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j-1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
-    } else if (board[i][j] === jumpPosition2) {
+    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2) {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
     }
   } else if (selectedPiece[0].player === 'carrots') {
-    let jumpPosition1 = board[selectedPiece[1]-2][selectedPiece[2]-2];
-    let jumpPosition2 = board[selectedPiece[1]-2][selectedPiece[2]+2];
-    if (board[i][j] === jumpPosition1) {
+    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2) {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
       numOfCheckers['numOfCookies']--;
-    } else if (board[i][j] === jumpPosition2) {
+    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2) {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     }
@@ -234,23 +230,6 @@ function nextTurn() {
     playersTurn = 'carrots';
   } else if (playersTurn === 'carrots') {
     playersTurn = 'cookies';
-  }
-}
-
-function isQueen(selectedPiece, i, j) {
-  // if cookie object lands on board array row 7, cookie isQueen
-  // if carrot object lands on board array row 0, carrot isQueen
-  if (selectedPiece[0].player === 'cookies') {
-    let queenPositions = [];
-    board[7].map(function(col) {
-      if (board[7].indexOf(col) % 2 === 1) {
-        queenPositions.push(board[7].indexOf(col));
-      }
-    });
-    if (selectedPiece[0]) {
-      
-    }
-
   }
 }
 
