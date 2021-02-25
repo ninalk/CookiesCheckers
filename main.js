@@ -59,6 +59,8 @@ const scoreEls = {
 }
 
 const winnerEl = document.getElementById('winner');
+winnerEl.style.visibility = 'hidden';
+
 const replayBtnEl = document.getElementById('replay-btn');
 
 /*----- functions -----*/
@@ -69,8 +71,6 @@ const replayBtnEl = document.getElementById('replay-btn');
 init();
 
 function init() {
-  console.log('init is working');
-
   playersTurn = 'cookies';
 
   numOfCheckers = {
@@ -102,7 +102,6 @@ function init() {
       }
     }
   }
-  winnerEl.style.visibility = 'hidden';
   render();
 }
 
@@ -127,8 +126,6 @@ function render() {
     turnEls.cookiesTurn.style.border = '5px solid grey';
     turnEls.carrotsTurn.style.border = 'none';
   }
-  // moveOptions(e, selectedPiece, i, j); 
-
 
   // render scoreboard
   for (let num in numOfCheckers) {
@@ -142,19 +139,7 @@ function render() {
       winnerEl.innerText = 'CARROTS WIN!!!';
       winnerEl.style.visibility = "visible";
     }
-  
   }    
-}
-
-function clearBoard() {
-  rowArray.forEach(function(row) {
-    for (let i = 0; i < row.length; i++) {
-      if (row[i].hasChildNodes()) {
-        row[i].firstChild.removeAttribute('src');
-      } else {
-      }
-    }
-  }); 
 }
 
 // Wait for user to click a cell
@@ -180,12 +165,10 @@ function handleCheckerClick(e, i, j) {
     render();
   } else if (board[i][j].player === playersTurn) {
     selectedPiece = [board[i][j], i, j];
-    // moveOptions(e, selectedPiece, i, j);
   } 
 }  
 
 function movePiece(e, selectedPiece, i, j) {
-  // console.log(selectedPiece, ' this is selectedPiece before move')
   if (typeof board[i][j] !== 'object') {
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = 1;
@@ -214,8 +197,8 @@ function isValidMove(selectedPiece, i , j) {
     let validCol3 = selectedPiece[2]-2; // capturing
     let validCol4 = selectedPiece[2]+2; // capturing
     if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
-      (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
-        return true;
+    (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
+      return true;
     } else {
       return false;
     }
@@ -223,23 +206,25 @@ function isValidMove(selectedPiece, i , j) {
 }
 
 function removePiece(selectedPiece, i, j) {
-  console.log(selectedPiece, i, j)
   if (selectedPiece[0].player === 'cookies') {
-    let jumpCarrot1 = board[selectedPiece[1]+2][selectedPiece[2]+2];
-    let jumpCarrot2 = board[selectedPiece[1]+2][selectedPiece[2]-2];
-    if (board[i][j] === jumpCarrot1) {
+    let jumpPosition1 = board[selectedPiece[1]+2][selectedPiece[2]+2];
+    let jumpPosition2 = board[selectedPiece[1]+2][selectedPiece[2]-2];
+    if (board[i][j] === jumpPosition1) {
       board[i-1][j-1].imgSrc = "";
-      console.log(board[i-1][j-1].imgSrc)
-    } else if (board[i][j] === jumpCarrot2) {
+      numOfCheckers['numOfCarrots']--;
+    } else if (board[i][j] === jumpPosition2) {
       board[i-1][j+1].imgSrc = "";
+      numOfCheckers['numOfCarrots']--;
     }
   } else if (selectedPiece[0].player === 'carrots') {
-    let jumpCookie1 = board[selectedPiece[1]-2][selectedPiece[2]-2];
-    let jumpCookie2 = board[selectedPiece[1]-2][selectedPiece[2]+2];
-    if (board[i][j] === jumpCookie1) {
+    let jumpPosition1 = board[selectedPiece[1]-2][selectedPiece[2]-2];
+    let jumpPosition2 = board[selectedPiece[1]-2][selectedPiece[2]+2];
+    if (board[i][j] === jumpPosition1) {
       board[i+1][j+1].imgSrc = "";
-    } else if (board[i][j] === jumpCookie2) {
+      numOfCheckers['numOfCookies']--;
+    } else if (board[i][j] === jumpPosition2) {
       board[i+1][j-1].imgSrc = "";
+      numOfCheckers['numOfCookies']--;
     }
   }
 }
@@ -252,8 +237,15 @@ function nextTurn() {
   }
 }
 
-function updateScore() {
-
+function clearBoard() {
+  rowArray.forEach(function(row) {
+    for (let i = 0; i < row.length; i++) {
+      if (row[i].hasChildNodes()) {
+        row[i].firstChild.removeAttribute('src');
+      } else {
+      }
+    }
+  }); 
 }
 
 // Handle click on Reset button
