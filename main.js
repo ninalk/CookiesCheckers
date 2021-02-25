@@ -59,15 +59,12 @@ const scoreEls = {
 }
 
 const winnerEl = document.getElementById('winner');
-winnerEl.style.visibility = 'hidden';
 
 const replayBtnEl = document.getElementById('replay-btn');
 
 /*----- functions -----*/
 // CALLBACK FUNCTIONS 
 // Init function - what the users see upon loading the browser
-  // Initialize Player's turn
-
 init();
 
 function init() {
@@ -82,26 +79,28 @@ function init() {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
-        let cookies = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
+        let cookie = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
         'images/icons8-cookie-emoji-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = cookies;
+          board[i][j] = cookie;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = cookies;
+          board[i][j] = cookie;
         } 
       } else if (i > board[i].length - 4) {
-        let carrots = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
+        let carrot = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
         'images/icons8-carrot-96.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
-          board[i][j] = carrots;
+          board[i][j] = carrot;
         } else if (i % 2 === 1 && j % 2 === 1) {
-          board[i][j] = carrots;
+          board[i][j] = carrot;
         }
       } else {
         board[i][j] = 1;
       }
     }
   }
+  winnerEl.style.visibility = 'hidden';
+
   render();
 }
 
@@ -210,20 +209,20 @@ function removePiece(selectedPiece, i, j) {
     let jumpPosition1 = board[selectedPiece[1]+2][selectedPiece[2]+2];
     let jumpPosition2 = board[selectedPiece[1]+2][selectedPiece[2]-2];
     if (board[i][j] === jumpPosition1) {
-      board[i-1][j-1].imgSrc = "";
+      board[i-1].splice(board[i-1].indexOf(board[i-1][j-1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
     } else if (board[i][j] === jumpPosition2) {
-      board[i-1][j+1].imgSrc = "";
+      board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
     }
   } else if (selectedPiece[0].player === 'carrots') {
     let jumpPosition1 = board[selectedPiece[1]-2][selectedPiece[2]-2];
     let jumpPosition2 = board[selectedPiece[1]-2][selectedPiece[2]+2];
     if (board[i][j] === jumpPosition1) {
-      board[i+1][j+1].imgSrc = "";
+      board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     } else if (board[i][j] === jumpPosition2) {
-      board[i+1][j-1].imgSrc = "";
+      board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     }
   }
@@ -248,5 +247,5 @@ function clearBoard() {
   }); 
 }
 
-// Handle click on Reset button
+// Handle click on replay button
 replayBtnEl.addEventListener('click', init);
