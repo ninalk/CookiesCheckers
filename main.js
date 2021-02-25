@@ -159,6 +159,7 @@ function handleCheckerClick(e, i, j) {
     }
     movePiece(e, selectedPiece, i, j);
     removePiece(selectedPiece, i, j);
+    isQueen(selectedPiece, i , j);
     selectedPiece = null;
     nextTurn();
     render();
@@ -233,6 +234,23 @@ function nextTurn() {
     playersTurn = 'carrots';
   } else if (playersTurn === 'carrots') {
     playersTurn = 'cookies';
+  }
+}
+
+function isQueen(selectedPiece, i, j) {
+  // if cookie object lands on board array row 7, cookie isQueen
+  // if carrot object lands on board array row 0, carrot isQueen
+  if (selectedPiece[0].player === 'cookies') {
+    let queenPositions = [];
+    board[7].map(function(col) {
+      if (board[7].indexOf(col) % 2 === 1) {
+        queenPositions.push(board[7].indexOf(col));
+      }
+    });
+    if (selectedPiece[0]) {
+      
+    }
+
   }
 }
 
