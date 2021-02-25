@@ -173,30 +173,26 @@ rowArray.forEach((row, i) => row.forEach((column, j) => column.addEventListener(
 let selectedPiece = null;
 
 function handleCheckerClick(e, i, j) {
+  // console.log(playersTurn, ' this is the playersTurn')
+  // console.log(board[i][j].player, ' this is the checkers player')
+  console.log(selectedPiece, ' this is selectedPiece before change')
   if (selectedPiece) {
-    moveOptions(e, selectedPiece, i, j);
     movePiece(e, selectedPiece, i, j);
-  }
-  if (board[i][j].player === 'cookies') {
-    playersTurn = 'cookies';
-  } else {
-    playersTurn = 'carrots';
-    console.log(playersTurn)
-  }
-  selectedPiece = [board[i][j], i, j];
-  
-  // isQueen?
+    selectedPiece = null;
+    nextTurn();
+    render();
+  } else if (board[i][j].player === playersTurn) {
+    selectedPiece = [board[i][j], i, j];
+    moveOptions(e, selectedPiece, i, j);
+  } 
+  console.log(selectedPiece, ' this is selectedPiece after change')
 }  
 
 function movePiece(e, selectedPiece, i, j) {
   if (typeof board[i][j] !== 'object') {
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = 1;
-  }
-  
-  selectedPiece = 1;
-  nextTurn();
-  render();
+  } 
 }
 
 let capturing;
@@ -242,11 +238,14 @@ function moveOptions(e, selectedPiece, i, j) {
 }
 
 function nextTurn() {
+  // console.log(playersTurn, ' before switch')
   if (playersTurn === 'cookies') {
     playersTurn = 'carrots';
   } else if (playersTurn === 'carrots') {
     playersTurn = 'cookies';
   }
+  // console.log(playersTurn, ' after switch')
+
 }
 
 function updateScore() {
