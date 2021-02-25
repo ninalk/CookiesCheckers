@@ -34,7 +34,6 @@ let board = [[1, null, 1, null, 1, null, 1, null],
              [null, 1, null, 1, null, 1, null, 1]];
 
 let numOfCheckers;
-let checkerPieces;
 let playersTurn;
 
 /*----- cached element references -----*/
@@ -60,7 +59,6 @@ const scoreEls = {
 }
 
 const winnerEl = document.getElementById('winner');
-
 const replayBtnEl = document.getElementById('replay-btn');
 
 /*----- functions -----*/
@@ -79,9 +77,7 @@ function init() {
     numOfCookies: 12,
     numOfCarrots: 12
   }
-  
-  checkerPieces = 'cookiePieces';
-  
+    
   // initialize board array with 12 cookies and 12 carrots
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -174,18 +170,17 @@ let selectedPiece = null;
 
 function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
-    // allow or prevent 
-    // if (cant move) return  
     if (!isValidMove(selectedPiece, i , j)) {
       return;
     }
     movePiece(e, selectedPiece, i, j);
+    removePiece(selectedPiece, i, j);
     selectedPiece = null;
     nextTurn();
     render();
   } else if (board[i][j].player === playersTurn) {
     selectedPiece = [board[i][j], i, j];
-    moveOptions(e, selectedPiece, i, j);
+    // moveOptions(e, selectedPiece, i, j);
   } 
 }  
 
@@ -195,14 +190,10 @@ function movePiece(e, selectedPiece, i, j) {
     board[i][j] = selectedPiece[0];
     board[selectedPiece[1]][selectedPiece[2]] = 1;
   }
-  
 }
 
 function isValidMove(selectedPiece, i , j) {
-  // console.log(i, ' is the new row index')
-  // console.log(j, ' is the new col index')
   if (selectedPiece[0].player === 'cookies') {
-    console.log(selectedPiece[0].player)
     let validRow1 = selectedPiece[1]+1; // noncapturing
     let validCol1 = selectedPiece[2]+1; // noncapturing
     let validCol2 = selectedPiece[2]-1; // noncapturing
@@ -231,32 +222,26 @@ function isValidMove(selectedPiece, i , j) {
   }
 }
 
-function moveOptions(e, selectedPiece, i, j) {
+function removePiece(selectedPiece, i, j) {
+  console.log(selectedPiece, i, j)
   if (selectedPiece[0].player === 'cookies') {
-    let option1 = `${selectedPiece[1]+1}, ${selectedPiece[2]+1}`;
-    let option2 = `${selectedPiece[1]+1}, ${selectedPiece[2]-1}`;
-    // console.log('Option 1 is board index ' + option1)
-    // console.log('Option 2 is board index ' + option2)
-    let option3 = `${selectedPiece[1]+2}, ${selectedPiece[2]+2}`;
-    let option4 = `${selectedPiece[1]+2}, ${selectedPiece[2]-2}`;
-    // let option3 = `${selectedPiece[1]+4}, ${selectedPiece[2]+4}`;
-    // let option4 = `${selectedPiece[1]+4}, ${selectedPiece[2]-4}`;
-    // let option5 = `${selectedPiece[1]+4}, ${selectedPiece[2]-0}`;
-    // console.log('Option 3 is board index ' + option3)
-    // console.log('Option 4 is board index ' + option4)
+    let jumpCarrot1 = board[selectedPiece[1]+2][selectedPiece[2]+2];
+    let jumpCarrot2 = board[selectedPiece[1]+2][selectedPiece[2]-2];
+    if (board[i][j] === jumpCarrot1) {
+      board[i-1][j-1].imgSrc = "";
+      console.log(board[i-1][j-1].imgSrc)
+    } else if (board[i][j] === jumpCarrot2) {
+      board[i-1][j+1].imgSrc = "";
+    }
   } else if (selectedPiece[0].player === 'carrots') {
-    let option1 = `${selectedPiece[1]-1}, ${selectedPiece[2]-1}`;
-    let option2 = `${selectedPiece[1]-1}, ${selectedPiece[2]+1}`;
-    // console.log('Option 1 is board index ' + option1)
-    // console.log('Option 2 is board index ' + option2)
-    let option3 = `${selectedPiece[1]-2}, ${selectedPiece[2]-2}`;
-    let option4 = `${selectedPiece[1]-2}, ${selectedPiece[2]+2}`;
-    // let option3 = `${selectedPiece[1]-4}, ${selectedPiece[2]-4}`;
-    // let option4 = `${selectedPiece[1]-4}, ${selectedPiece[2]+4}`;
-    // let option5 = `${selectedPiece[1]-4}, ${selectedPiece[2]-0}`;
-    // console.log('Option 3 is board index ' + option3)
-    // console.log('Option 4 is board index ' + option4)
-  } 
+    let jumpCookie1 = board[selectedPiece[1]-2][selectedPiece[2]-2];
+    let jumpCookie2 = board[selectedPiece[1]-2][selectedPiece[2]+2];
+    if (board[i][j] === jumpCookie1) {
+      board[i+1][j+1].imgSrc = "";
+    } else if (board[i][j] === jumpCookie2) {
+      board[i+1][j-1].imgSrc = "";
+    }
+  }
 }
 
 function nextTurn() {
