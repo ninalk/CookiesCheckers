@@ -106,7 +106,6 @@ function init() {
 
 // Render function - responsible for transferring all state variables
 function render() {
-  console.log('render is working');
   clearBoard();
   // render state of board array
   for (let i = 0; i < rowArray.length; i++) {
@@ -180,6 +179,7 @@ function movePiece(e, selectedPiece, i, j) {
   }
 }
 
+// Need to add features that prevent piece from moving two spaces if noncapturing
 function isValidMove(selectedPiece, i , j) {
   if (selectedPiece[0].player === 'cookies') {
     let validRow1 = selectedPiece[1]+1; // noncapturing
@@ -232,24 +232,23 @@ function removePiece(selectedPiece, i, j) {
       numOfCheckers['numOfCookies']--;
     }
   }
-  // if (selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) {
-  //   for (let x = 0; x < board.length; x++) {
-  //     for (let y = 0; y < board[x].length; y++) {
-  //       if (i === x && j === y) {
-
-  //       }
-  //     }
-  //   }
-  //   if (i === selectedPiece[1]) {
-  //     board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
-  //     numOfCheckers['numOfCarrots']--;
-  //   }
-  // } else if (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen) {
-  //   if (i % 2 === j % 2) {
-  //     board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
-  //     numOfCheckers['numOfCookies']--;
-  //   }
-  // }
+  if (selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) {
+    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2) {
+      board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
+      numOfCheckers['numOfCarrots']--;
+    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2) {
+      board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
+      numOfCheckers['numOfCarrots']--;
+    }
+  } else if (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen) {
+    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2) {
+      board[i-1].splice(board[i-1].indexOf(board[i-1][j-1]), 1, 1);
+      numOfCheckers['numOfCookies']--;
+    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2) {
+      board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
+      numOfCheckers['numOfCookies']--;
+    }
+  }
 }
 
 function isQueen(selectedPiece, i, j) {
@@ -265,7 +264,6 @@ function isQueen(selectedPiece, i, j) {
     for (let x = 0; x < queenPositions.length; x++) {
       if (board[i][j] === board[7][queenPositions[x]]) {
         selectedPiece[0].isQueen = true;
-        console.log(selectedPiece[0], ' is Queen')
       }  
     }
     return true;
@@ -279,7 +277,6 @@ function isQueen(selectedPiece, i, j) {
     for (let x = 0; x < queenPositions.length; x++) {
       if (board[i][j] === board[0][queenPositions[x]]) {
         selectedPiece[0].isQueen = true;
-        console.log(selectedPiece[0], ' is Queen')
       }  
     }
     return true;
