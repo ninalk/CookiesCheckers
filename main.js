@@ -114,7 +114,6 @@ function render() {
         rowArray[i][j].firstChild.setAttribute('src', `${board[i][j].imgSrc}`);
       } 
       if (typeof board[i][j] === 'object' && board[i][j] !== null && board[i][j].isQueen) {
-        console.log(board[i][j])
         rowArray[i][j].firstChild.setAttribute('src', `${board[i][j].queenImgSrc}`);
       } else {
       }
@@ -155,6 +154,7 @@ rowArray.forEach((row, i) => row.forEach((column, j) => column.addEventListener(
 
 let selectedPiece = null;
 
+// event handler when player selects a checker piece
 function handleCheckerClick(e, i, j) {
   if (selectedPiece) {
     if (!isValidMove(selectedPiece, i , j)) {
