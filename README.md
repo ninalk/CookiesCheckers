@@ -19,7 +19,7 @@ This is not your traditional checker game! Play a game with a friend and see if 
 ## Wireframe:
 
 The image below shows the logic I used for preventing and allowing pieces to move accordingly. The board is 2D array that allows me to use the index of the pieces positions to move as necessary.
-<img src="https://i.imgur.com/kJ6rGWq.jpg">
+<img src="https://i.imgur.com/kJ6rGWq.jpg?1">
 
 ## Technologies Used:
 

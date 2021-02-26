@@ -188,8 +188,10 @@ function isValidMove(selectedPiece, i , j) {
     let validRow2 = selectedPiece[1]+2; // capturing
     let validCol3 = selectedPiece[2]+2; // capturing
     let validCol4 = selectedPiece[2]-2; // capturing
-    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
-    (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
+    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2)) {
+      return true;
+    } else if ((i === validRow2 && j === validCol3 && board[i-1][j-1].player === 'carrots')
+     || (i === validRow2 && j === validCol4 && board[i-1][j+1].player === 'carrots')) {
       return true;
     }
   } else if (selectedPiece[0].player === 'carrots') {
@@ -199,8 +201,10 @@ function isValidMove(selectedPiece, i , j) {
     let validRow2 = selectedPiece[1]-2; // capturing
     let validCol3 = selectedPiece[2]-2; // capturing
     let validCol4 = selectedPiece[2]+2; // capturing
-    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2) ||
-    (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
+    if ((i === validRow1 && j === validCol1) || (i === validRow1 && j === validCol2)) {
+      return true;
+    } else if ((i === validRow2 && j === validCol3 && board[i+1][j+1].player === 'cookies')
+     || (i === validRow2 && j === validCol4 && board[i+1][j-1].player === 'cookies')) {
       return true;
     }
   } 
