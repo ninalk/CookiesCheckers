@@ -6,14 +6,17 @@
 
 The inspiration for this game came from my sweet dog, Cookie, who loved being outdoors in the company of his human friends. However, he had his sneaky ways of getting into their bags in search for baby carrots. His begging was in the form of an intense stare and his human counterparts would give in easily.
 
-This is not your traditional checker game! Play a game with a friend and see if Cookie can win some more carrots! 
+This is not your traditional checker game! Play a game with a friend and see if Cookie can eat some more carrots! 
 
 ---
  
 ## Screenshots: 
 
+Start of game:
 <img src="https://i.imgur.com/MEX7cku.png">
+Shows a queen carrot:
 <img src="https://i.imgur.com/HDTA4J2.png">
+Display winner:
 <img src="https://i.imgur.com/WFr1nqP.png">
 
 ## Wireframe:
