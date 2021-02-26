@@ -143,8 +143,6 @@ function render() {
   }    
 }
 
-// Wait for user to click a cell
-
 /*----- event listeners -----*/
 // CONTROLLERS
 // Add event listeners to relevant elements
@@ -179,7 +177,7 @@ function movePiece(e, selectedPiece, i, j) {
   }
 }
 
-// Need to add features that prevent piece from moving two spaces if noncapturing
+// checks if move is valid
 function isValidMove(selectedPiece, i , j) {
   if (selectedPiece[0].player === 'cookies') {
     let validRow1 = selectedPiece[1]+1; // noncapturing
@@ -218,46 +216,46 @@ function isValidMove(selectedPiece, i , j) {
   }
 }
 
+// remove pieces only when they get jumped, then update score
 function removePiece(selectedPiece, i, j) {
   if (selectedPiece[0].player === 'cookies') {
-    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2) {
+    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2 && board[i-1][j-1].player === 'carrots') {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j-1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
-    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2) {
+    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2 && board[i-1][j+1].player === 'carrots') {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
     }
   } else if (selectedPiece[0].player === 'carrots') {
-    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2) {
+    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2 && board[i+1][j+1].player === 'cookies') {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
       numOfCheckers['numOfCookies']--;
-    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2) {
+    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2 && board[i+1][j-1].player === 'cookies') {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     }
   }
   if (selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) {
-    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2) {
+    if (i === selectedPiece[1]-2 && j === selectedPiece[2]-2 && board[i+1][j+1].player === 'carrots') {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
-    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2) {
+    } else if (i === selectedPiece[1]-2 && j === selectedPiece[2]+2 && board[i+1][j-1].player === 'carrots') {
       board[i+1].splice(board[i+1].indexOf(board[i+1][j-1]), 1, 1);
       numOfCheckers['numOfCarrots']--;
     }
   } else if (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen) {
-    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2) {
+    if (i === selectedPiece[1]+2 && j === selectedPiece[2]+2 && board[i-1][j-1].player === 'cookies') {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j-1]), 1, 1);
       numOfCheckers['numOfCookies']--;
-    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2) {
+    } else if (i === selectedPiece[1]+2 && j === selectedPiece[2]-2 && board[i-1][j+1].player === 'cookies') {
       board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
       numOfCheckers['numOfCookies']--;
     }
   }
 }
 
+// turns piece into a queen
 function isQueen(selectedPiece, i, j) {
-  // if cookie object lands on board array row 7, cookie isQueen
-  // if carrot object lands on board array row 0, carrot isQueen
   if (selectedPiece[0].player === 'cookies') {
     let queenPositions = [];
     board[7].map(function(col) {
