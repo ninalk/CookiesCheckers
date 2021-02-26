@@ -80,7 +80,7 @@ function init() {
     for (let j = 0; j < board[i].length; j++) {
       if (i < board[i].length - 5) {
         let cookie = new CookieCheckers('cookies', 'images/icons8-cookie-emoji-48.png',
-        'images/icons8-cookie-emoji-96.png', false);
+        'images/icons8-cookie-emoji-68.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
           board[i][j] = cookie;
         } else if (i % 2 === 1 && j % 2 === 1) {
@@ -88,7 +88,7 @@ function init() {
         } 
       } else if (i > board[i].length - 4) {
         let carrot = new CarrotCheckers('carrots', 'images/icons8-carrot-48.png',
-        'images/icons8-carrot-96.png', false);
+        'images/icons8-carrot-68.png', false);
         if (i % 2 === 0 && j % 2 === 0) {
           board[i][j] = carrot;
         } else if (i % 2 === 1 && j % 2 === 1) {
@@ -113,6 +113,10 @@ function render() {
     for (let j = 0; j < rowArray[i].length; j++) {
       if (typeof board[i][j] === 'object' && board[i][j] !== null) {
         rowArray[i][j].firstChild.setAttribute('src', `${board[i][j].imgSrc}`);
+      } 
+      if (typeof board[i][j] === 'object' && board[i][j] !== null && board[i][j].isQueen) {
+        console.log(board[i][j])
+        rowArray[i][j].firstChild.setAttribute('src', `${board[i][j].queenImgSrc}`);
       } else {
       }
     }
@@ -202,8 +206,6 @@ function isValidMove(selectedPiece, i , j) {
   } 
   if ((selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) || 
   (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen)) {
-    console.log(selectedPiece[0])
-    console.log(i)
     if (i % 2 === j % 2) {
       return true;
     }
@@ -230,6 +232,24 @@ function removePiece(selectedPiece, i, j) {
       numOfCheckers['numOfCookies']--;
     }
   }
+  // if (selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) {
+  //   for (let x = 0; x < board.length; x++) {
+  //     for (let y = 0; y < board[x].length; y++) {
+  //       if (i === x && j === y) {
+
+  //       }
+  //     }
+  //   }
+  //   if (i === selectedPiece[1]) {
+  //     board[i-1].splice(board[i-1].indexOf(board[i-1][j+1]), 1, 1);
+  //     numOfCheckers['numOfCarrots']--;
+  //   }
+  // } else if (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen) {
+  //   if (i % 2 === j % 2) {
+  //     board[i+1].splice(board[i+1].indexOf(board[i+1][j+1]), 1, 1);
+  //     numOfCheckers['numOfCookies']--;
+  //   }
+  // }
 }
 
 function isQueen(selectedPiece, i, j) {
