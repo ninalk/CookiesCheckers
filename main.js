@@ -199,27 +199,16 @@ function isValidMove(selectedPiece, i , j) {
     (i === validRow2 && j === validCol3) || (i === validRow2 && j === validCol4)) {
       return true;
     }
-  } else if (selectedPiece[0].player === 'cookies' && selectedPiece.isQueen) {
-    for (let x = 0; x < board.length; x++) {
-      for (let y = 0; y < board[x].length; y++) {
-        if (x % 2 === 0 && y % 2 === 0) {
-          let validRow = x;
-          let validCol = y;
-          console.log(validRow, validCol)
-          if (i === validRow && j === validCol) {
-            return true;
-          }
-        } else if (x % 2 === 1 && y % 2 === 1) {
-          let validRow = x;
-          let validCol = y;
-          if (i === validRow && j === validCol) {
-            return true;
-          }
-        }
-      }
+  } 
+  if ((selectedPiece[0].player === 'cookies' && selectedPiece[0].isQueen) || 
+  (selectedPiece[0].player === 'carrots' && selectedPiece[0].isQueen)) {
+    console.log(selectedPiece[0])
+    console.log(i)
+    if (i % 2 === j % 2) {
+      return true;
     }
-  } else if (selectedPiece[0].player === 'carrots' && isQueen(selectedPiece, i, j)) {
-
+  } else {
+    return false;
   }
 }
 
@@ -263,8 +252,8 @@ function isQueen(selectedPiece, i, j) {
   } else if (selectedPiece[0].player === 'carrots') {
     let queenPositions = [];
     board[0].map(function(col) {
-      if (board[7].indexOf(col) % 2 === 0) {
-        queenPositions.push(board[7].indexOf(col));
+      if (board[0].indexOf(col) % 2 === 0) {
+        queenPositions.push(board[0].indexOf(col));
       }
     });
     for (let x = 0; x < queenPositions.length; x++) {
