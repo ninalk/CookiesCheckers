@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/SFGR7bc.png">
+<img src="https://i.imgur.com/SFGR7bc.png?1">
 
 # Welcome to Cookie's Checkers!!
 
@@ -18,9 +18,8 @@ This is not your traditional checker game! Play a game with a friend and see if 
 
 ## Wireframe:
 
+The image below shows the logic I used for preventing and allowing pieces to move accordingly. The board is 2D array that allows me to use the index of the pieces positions to move as necessary.
 <img src="https://i.imgur.com/kJ6rGWq.jpg">
-
----
 
 ## Technologies Used:
 
@@ -28,13 +27,9 @@ This is not your traditional checker game! Play a game with a friend and see if 
 2. HTML
 3. CSS
 
----
-
 ## Getting Started: 
 
 Check out the game here: [Cookie's Checkers](https://ninalk.github.io/CookiesCheckers/)
-
----
 
 ## How to play:
 
@@ -42,8 +37,8 @@ Check out the game here: [Cookie's Checkers](https://ninalk.github.io/CookiesChe
 
 1. Cookie always goes first and the player alternates after **one** move (aka one jump). **No double jumping allowed!**
 2. Cookies and carrot checker pieces can only move diagonally forward left or right from their respective positions.
-..* If moving into an empty cell, the pieces can only move into one space.
-..* If eating a carrot (or cookie), the piece may jump two spaces.
+* If moving into an empty cell, the pieces can only move into one space.
+* If eating a carrot (or cookie), the piece may jump two spaces.
 3. When a cookie or carrot makes it to the opposite end, the piece enlarges and becomes a queen!
 4. A queen is entitled to roam anywhere on the board. However, it may only eat its counterpart when it is adjacent to the piece in any direction.
 5. Winner is determined by the number of pieces left. Each player starts with 12 pieces so the first to zero loses!
